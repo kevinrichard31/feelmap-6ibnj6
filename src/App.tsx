@@ -184,7 +184,7 @@ const App: React.FC = () => {
   return (
     <EmotionProvider>
       <IonApp>
-        <IonReactRouter>
+        <IonReactRouter >
           <div className='container-relative'>
             {/* <div className='testcamera' style={{height: '50px', backgroundColor: 'red', zIndex: 10000, position: 'relative'}}>
               iphone camera
