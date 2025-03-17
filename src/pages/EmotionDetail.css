@@ -126,7 +126,8 @@ ion-content {
 }
 
 .selected-date {
-  margin-top: 45px;
+  margin-top: 75px;
+  margin-bottom: 25px;
 }
 
 .place-type {
