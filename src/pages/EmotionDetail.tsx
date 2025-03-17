@@ -123,7 +123,7 @@ const EmotionDetail: React.FC = () => {
         <div>
           {emotionsList.map((emotion: any, index: number) => (
             <div key={emotion.id} className={`emotion-detail-container emotion-detail-container-fade-in`} style={{ animationDelay: `${index * 0.2}s` }}>
-              <div className="content">
+              <div className="content" style={{width:"100%"}}>
                 <div className='emoji-date'>
                   <div className='container-content-emotion-title'>
                     <img src={getStaticImage(emotion.emotionName)} alt={emotion.emotionName} className='img-emotion' />
