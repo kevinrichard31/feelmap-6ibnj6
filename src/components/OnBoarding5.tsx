@@ -25,7 +25,7 @@ const OnBoarding5: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
         exit={{ opacity: 0, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <img src="./images/onboarding/shield-feeloo.svg" alt="" className={styles['iconright']} />
+        <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
         <div className={styles['title']} style={{ paddingTop: '45px', marginBottom: '15px' }}>
           Espace
           <br></br>

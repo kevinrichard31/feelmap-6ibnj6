@@ -50,8 +50,8 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
         exit={{ opacity: 0, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <img src="./images/onboarding/iconright.svg" alt="" className={styles['iconright']} />
-        <div className={styles['title']} style={{ paddingTop: '45px', marginBottom: '15px' }}>
+        <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
+        <div className={styles['title']} style={{ marginBottom: '15px' }}>
           Où te sens-tu 
           <br></br>
           <span className={styles['title-bold']}>vraiment bien ?</span>

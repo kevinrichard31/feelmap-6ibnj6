@@ -25,8 +25,9 @@ const OnBoarding2: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 0 }}
         transition={{ duration: 0.5 }}
+        style={{position: 'relative'}}
       >
-        <img src="./images/onboarding/iconright.svg" alt="" className={styles['iconright']} />
+        <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
         <div className={styles['title']} style={{ paddingTop: '45px', marginBottom: '15px' }}>Note tes émotions <br></br>
           <span className={styles['title-bold']}>au quotidien ✍️</span>
         </div>

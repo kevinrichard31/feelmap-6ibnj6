@@ -3,6 +3,7 @@
     height: 100%;
     background-size: cover;
     position: relative;
+    padding-top: 60px;
 }
 
 .background2-content {
@@ -10,4 +11,5 @@
     height: 100%;
     background-size: cover;
     position: relative;
+    padding-top: 60px;
 }
