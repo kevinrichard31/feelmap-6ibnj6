@@ -24,7 +24,7 @@ const OnBoarding1: React.FC<Props> = ({ onNext, currentStep }) => {
         exit={{ opacity: 0, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <img src="./images/onboarding/iconright.svg" alt="" className={styles['iconright']} />
+        <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
         <div className={styles['title']}>Bienvenue dans <br></br>
           <span className={styles['title-bold']}>Feelmap</span>
         </div>
