@@ -186,6 +186,9 @@ const App: React.FC = () => {
       <IonApp>
         <IonReactRouter>
           <div className='container-relative'>
+            <div className='testcamera' style={{height: '50px', backgroundColor: 'red', zIndex: 10000, position: 'relative'}}>
+              iphone camera
+            </div>
             <IonTabs>
               <IonRouterOutlet>
                 <Route exact path="/tab1">

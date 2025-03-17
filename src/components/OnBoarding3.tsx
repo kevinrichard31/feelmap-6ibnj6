@@ -38,7 +38,7 @@ const OnBoarding3: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
         {/* Bouton "Suivant" */}
         <div className={styles['next-container']}>
           {/* <button onClick={onBack} className={styles['prev']}>Retour</button> */}
-          <button onClick={onNext} className={styles['next-second-color']}>Suivant</button>
+          <button onClick={onNext} className={styles['next-second-color']} style={{marginTop: '15px'}}>Suivant</button>
         </div>
 
       </motion.div>
