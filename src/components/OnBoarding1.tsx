@@ -34,6 +34,7 @@ const OnBoarding1: React.FC<Props> = ({ onNext, currentStep }) => {
         {/* Bouton "Suivant" */}
         <div className={styles['next-container']}>
           <button onClick={onNext} className={styles['next']}>Suivant</button>
+          <button onClick={onNext} className={styles['nexttest']}>Suivant</button>
         </div>
 
         
