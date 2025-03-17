@@ -64,7 +64,9 @@ const Tab1: React.FC = () => {
     }
 
     if (coordinates) {
-      const mapInstance = L.map('map').setView(
+      const mapInstance = L.map('map',{
+        zoomControl: false
+      }).setView(
         [coordinates.coords.latitude, coordinates.coords.longitude],
         13
       );

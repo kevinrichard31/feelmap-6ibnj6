@@ -37,7 +37,7 @@ const Params: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
 
-        <div style={{ padding: '15px' }}>
+        <div style={{ padding: '15px', paddingTop: '50px' }}>
         <img src="/images/back.svg" alt="Retour" className={styles['back-img']} onClick={() => history.goBack()}/>
           <div className={styles['describe-title']}>Paramètres</div>
 

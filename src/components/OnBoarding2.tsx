@@ -31,7 +31,7 @@ const OnBoarding2: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
           <span className={styles['title-bold']}>au quotidien ✍️</span>
         </div>
         <p className={styles['onboarding-p']}>Prends quelques secondes chaque jour pour noter comment tu te sens. Cela t’aidera à mieux comprendre ton état d’esprit.</p>
-        <div className={styles['square-container']}>
+        <div className={styles['square-container']} style={{marginTop: '30px'}}>
           <div className={styles['square']}>
           </div>
           <div className={styles['square-background']}>

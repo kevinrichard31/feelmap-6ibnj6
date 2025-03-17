@@ -83,7 +83,7 @@ const SelectPlace: React.FC = () => {
   return (
     <IonPage className="describe">
       <IonContent>
-        <h1 className=''>{t('setyourlocation')}</h1>
+        <h1 className='' style={{paddingTop: '20px'}}>{t('setyourlocation')}</h1>
         {error && <p className="error">{error}</p>}
         <IonList className='ionlist-select'>
           {placeTypes.map((place, index) => (
