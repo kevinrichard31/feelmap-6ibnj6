@@ -26,7 +26,7 @@ const Describe: React.FC = () => {
   }, []);  // Run only once after component mounts
 
   // --- Get Current Location Using Capacitor Geolocation ---
-  const getLocation = useCallback(async () => {
+  const getLocation = async () => {
     try {
       const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
       const { latitude, longitude } = position.coords;
@@ -36,17 +36,12 @@ const Describe: React.FC = () => {
       console.error('Error fetching location', error);
       setError('Failed to get location: ' + error.message); // Include error message
     }
-  }, [emotion, image, background, setEmotion]);
+  };
 
   // --- Fetch Location on Component Mount ---
-  useEffect(() => {
+  useIonViewDidEnter(() => {
     getLocation();
-
-    // Cleanup function (not really needed here, but good practice)
-    return () => {
-      // Any cleanup logic can go here (e.g., cancelling subscriptions)
-    };
-  }, [getLocation]);
+  });
 
   // --- Handle Textarea Change ---
   const handleTextChange = useCallback((event: CustomEvent) => {

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Feelmap</string>
+    <string name="title_activity_main">Feelmap</string>
+    <string name="package_name">com.feelmap.app</string>
+    <string name="custom_url_scheme">com.feelmap.app</string>
+</resources>

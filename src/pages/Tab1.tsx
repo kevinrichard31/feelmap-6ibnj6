@@ -71,7 +71,7 @@ const Tab1: React.FC = () => {
         13
       );
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      L.tileLayer('https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=8e6f42fa80cd4449b69d8e3867030188', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(mapInstance);
 
