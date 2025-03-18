@@ -45,6 +45,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Nous utilisons votre localisation pour vous fournir des recommandations de contenu basées sur votre emplacement actuel.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Cette application nécessite votre localisation pour fournir des fonctionnalités de géolocalisation.</string>
 </dict>
