@@ -133,7 +133,8 @@ ion-content {
 .place-type {
   max-height: 12px;
   position: absolute;
-  width: fit-content!important;
+  width: 11px;
+  left: 4px;
 }
 
 .container-place-type {
