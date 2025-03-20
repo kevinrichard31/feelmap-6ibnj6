@@ -256,7 +256,6 @@ export const updatePlaceType = async (
   placeTypeId: number
 ) => {
   try {
-    console.log('ON LANCE LE PATCH')
     const response = await fetch(`${API_URL}/emotions/${emotionId}/place-type`, {
       method: 'PATCH',
       headers: {

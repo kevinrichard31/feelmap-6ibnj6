@@ -7,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 import markerIcon from '../icons/current.svg';
 import { getAllEmotionsWithAuth } from '../utils/api';
 import { emotions as emotionData } from '../data/emotions';
+import './Tab1.css';
 
 const Tab1: React.FC = () => {
   const [coordinates, setCoordinates] = useState<Position | null>(null);
@@ -68,24 +69,36 @@ const Tab1: React.FC = () => {
       // Supprimer les anciens marqueurs
       markers.forEach(marker => marker.remove());
       setMarkers([]);
-
+  
       // Ajouter les nouveaux marqueurs
       const newMarkers: L.Marker[] = emotions.map((emotion) => {
-        const emotionIcon = L.icon({
-          iconUrl: emotionData.find(e => e.name === emotion.emotionName)?.imageStatic || '/icons/default.svg',
-          iconSize: [40, 40]
+        const emotionImage = emotionData.find(e => e.name === emotion.emotionName)?.imageStatic || '/icons/default.svg';
+        const placeTypeImage = `/images/places/${emotion.placeTypeId}.svg`;
+  
+        // Création d'un icône personnalisé avec les deux images
+        const customIcon = L.divIcon({
+          className: 'custom-marker',
+          html: `
+            <div class="marker-container">
+              <img src="${emotionImage}" class="marker-emotion" />
+              <div class="marker-place-type"><img src="${placeTypeImage}"  class="marker-place-type-icon"/></div>
+            </div>
+          `,
+          iconSize: [40, 40], // Ajuste selon tes besoins
+          iconAnchor: [20, 30]
         });
-
-        const marker = L.marker([emotion.latitude, emotion.longitude], { icon: emotionIcon })
+  
+        const marker = L.marker([emotion.latitude, emotion.longitude], { icon: customIcon })
           .addTo(mapRef.current!)
           .on('click', () => routerLink.push(`/emotiondetail/?date=${encodeURIComponent(emotion.emotionDate)}`));
-
+  
         return marker;
       });
-
+  
       setMarkers(newMarkers);
     }
   };
+  
 
   useEffect(() => {
     return () => {
