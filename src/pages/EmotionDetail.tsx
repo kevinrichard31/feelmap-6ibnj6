@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useLocation } from 'react-router-dom';
-import './Tab2.css';
+import './Calendar.css';
 import { useEffect, useState } from 'react';
 import { getDailyEmotions } from '../utils/api';
 import { useEmotion } from '../contexts/EmotionContext';

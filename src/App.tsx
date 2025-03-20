@@ -18,7 +18,7 @@ import {
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, location, calendarNumber, settingsOutline, settings, people, personAdd, person, barChart, pieChart, analytics } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
+import Calendar from './pages/Calendar';
 import Params from './pages/Params';
 import Stats from './pages/Stats'
 
@@ -194,8 +194,8 @@ const App: React.FC = () => {
                 <Route exact path="/tab1">
                   <Tab1 />
                 </Route>
-                <Route exact path="/tab2">
-                  <Tab2 />
+                <Route exact path="/calendar">
+                  <Calendar />
                 </Route>
                 <Route exact path="/onboarding">
                   <OnBoarding setActiveTab={setActiveTab} />
@@ -251,10 +251,10 @@ const App: React.FC = () => {
                   <IonIcon aria-hidden="true" icon={location} />
                 </IonTabButton>
                 <IonTabButton
-                  tab="tab2"
-                  href="/tab2"
-                  style={tabButtonStyle('tab2')}
-                  onClick={() => setActiveTab('tab2')}
+                  tab="calendar"
+                  href="/calendar"
+                  style={tabButtonStyle('calendar')}
+                  onClick={() => setActiveTab('calendar')}
                   className="tab-button" // Add a class for styling
                 >
                   <IonIcon aria-hidden="true" icon={calendarNumber} />

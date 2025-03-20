@@ -7,7 +7,7 @@ import {
 } from '@ionic/react';
 import { getMonthlyEmotions } from '../utils/api';
 import { emotions as emotionData } from '../data/emotions';
-import './Tab2.css';
+import './Calendar.css';
 
 // Mois en français
 const monthNames = [
@@ -15,10 +15,10 @@ const monthNames = [
   'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre',
 ];
 
-const Tab2: React.FC = () => {
+const Calendar: React.FC = () => {
   const router = useIonRouter();
   const [calendarDate, setCalendarDate] = useState(new Date());
-  const [emotionsByDay, setEmotionsByDay] = useState<{ [key: number]: any[] }>({});
+  const [emotionsByDay, setEmotionsByDay] = useState<{ [key: number]: any }>({});
   const [lastEmotion, setLastEmotion] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -36,14 +36,23 @@ const Tab2: React.FC = () => {
       const emotions = await getMonthlyEmotions(userId, month, year);
 
       // Organisation des émotions par jour
-      const groupedEmotions = emotions.reduce((acc: { [key: number]: any[] }, emotion: any) => {
+      const groupedEmotions = emotions.reduce((acc: { [key: number]: any }, emotion: any) => {
         const day = new Date(emotion.emotionDate).getDate();
-        acc[day] = acc[day] || [];
-        acc[day].push(emotion);
+
+        // Comparer les dates et ne garder que la dernière émotion du jour
+        if (!acc[day] || new Date(emotion.emotionDate) > new Date(acc[day].emotionDate)) {
+          acc[day] = emotion;
+        }
+
         return acc;
       }, {});
 
+      console.log('groupedEmotions')
+      console.log(groupedEmotions)
+
       setEmotionsByDay(groupedEmotions);
+      console.log('emotions by day')
+      console.log(emotionsByDay)
 
       // Trouver la dernière émotion
       if (emotions.length > 0) {
@@ -111,8 +120,8 @@ const Tab2: React.FC = () => {
 
   // Obtenir la couleur de background d'une emotion
   const getEmotionBackground = (emotionName: string) => {
-      const emotion = emotionData.find(e => e.name === emotionName);
-      return emotion?.color || 'transparent';
+    const emotion = emotionData.find(e => e.name === emotionName);
+    return emotion?.color || 'transparent';
   }
 
 
@@ -147,25 +156,22 @@ const Tab2: React.FC = () => {
                   >
                     <div className="day-number">{day}</div>
                     <div className="emotions-list">
-                      {emotionsByDay[day]?.map((emotion, index) => (
-                        <div
-                          key={index}
-                          className="emotion-icon-container"
-                          
-                        >
+                      {emotionsByDay[day] && (
+                        <div className="emotion-icon-container">
                           <img
-                            src={getEmotionIcon(emotion.emotionName)}
-                            alt={emotion.emotionName}
+                            src={getEmotionIcon(emotionsByDay[day].emotionName)}
+                            alt={emotionsByDay[day].emotionName}
                             className="emotion-icon"
                           />
-                          <div style={{ backgroundColor: getEmotionBackground(emotion.emotionName) }}
-                          className='emotion-background'
-                          >
-
-                          </div>
+                          <div
+                            style={{ backgroundColor: getEmotionBackground(emotionsByDay[day].emotionName) }}
+                            className="emotion-background"
+                          ></div>
                         </div>
-                      ))}
+                      )}
                     </div>
+
+
                   </div>
                 ))}
               </div>
@@ -177,4 +183,4 @@ const Tab2: React.FC = () => {
   );
 };
 
-export default Tab2;
+export default Calendar;
