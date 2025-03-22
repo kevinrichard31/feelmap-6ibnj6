@@ -51,9 +51,24 @@ import Utilisation from './pages/Utilisation';
 import Permission from './pages/Permission';
 import OnBoarding from './pages/OnBoarding/OnBoarding';
 import { createAnimation } from '@ionic/react';
-
+declare global {
+  interface Window {
+    ClarityPlugin?: any;
+  }
+}
 
 setupIonicReact();
+
+const initializeClarity = () => {
+  const success = (message: string) => console.log("Clarity initialized:", message);
+  const failure = (message: string) => console.error("Clarity initialization failed:", message);
+
+  if (isPlatform('android') && window.ClarityPlugin) {
+    window.ClarityPlugin.initialize("qrq4x25xym", success, failure, { isIonic: true });
+  } else {
+    console.warn("ClarityPlugin is not available or not on Android platform.");
+  }
+};
 
 const App: React.FC = () => {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -73,6 +88,11 @@ const App: React.FC = () => {
 
     return animation;
   };
+
+  useEffect(() => {
+    console.log('initialisation clarity')
+    initializeClarity();
+  }, []);
 
   useEffect(() => {
     const initialize = async () => {

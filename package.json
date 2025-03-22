@@ -26,6 +26,8 @@
     "@lottiefiles/dotlottie-react": "^0.13.2",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
+    "cordova-clarity": "^2.3.0",
+    "cordova-plugin-device": "^3.0.0",
     "framer-motion": "^12.5.0",
     "i18n": "^0.15.1",
     "i18next": "^24.2.3",

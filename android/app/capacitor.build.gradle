@@ -17,7 +17,7 @@ dependencies {
     implementation project(':capacitor-status-bar')
 
 }
-
+apply from: "../../node_modules/cordova-clarity/src/android/build.gradle"
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()
