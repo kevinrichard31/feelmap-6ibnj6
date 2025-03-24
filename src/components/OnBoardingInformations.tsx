@@ -22,7 +22,7 @@ const OnBoardingInformations: React.FC<Props> = ({ onNext, currentStep }) => {
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 0 }}
-        transition={{ duration: 0.5 }}ù
+        transition={{ duration: 0.5 }}
       >
 
         <p className={`${styles['subtitle']} ${styles['onboarding-p']}`}>🔔 Information Importante</p>
