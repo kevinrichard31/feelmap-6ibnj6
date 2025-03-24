@@ -14,6 +14,7 @@ import './style.css';
 // Create a new store for onboarding status
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import OnBoardingInformations from '../../components/OnBoardingInformations';
 
 interface OnboardingStore {
   hasCompletedOnboarding: boolean;
@@ -40,7 +41,7 @@ interface OnBoardingProps {
 const OnBoarding: React.FC<OnBoardingProps> = ({ setActiveTab }) => {  // Update the function signature
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState(1); // 1 = avancer, -1 = reculer
-  const maxStep = 6;
+  const maxStep = 7;
   const backgroundClass = useBackgroundStore((state) => state.backgroundClass);
   const router = useIonRouter();
   const { hasCompletedOnboarding, setOnboardingCompleted } = useOnboardingStore();
@@ -98,12 +99,13 @@ const OnBoarding: React.FC<OnBoardingProps> = ({ setActiveTab }) => {  // Update
         {!hasCompletedOnboarding &&
           <div className={backgroundClass}>
             <AnimatePresence mode="wait" custom={direction}>
-              {step === 1 && <OnBoarding1 key="step1" currentStep={[step, maxStep]} onNext={handleNext} />}
-              {step === 2 && <OnBoarding2 key="step2" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
-              {step === 3 && <OnBoarding3 key="step3" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
-              {step === 4 && <OnBoarding4 key="step4" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
-              {step === 5 && <OnBoarding5 key="step5" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
-              {step === 6 && <OnBoarding6 key="step6" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
+              {step === 1 && <OnBoardingInformations key="step1" currentStep={[step, maxStep]} onNext={handleNext} />}
+              {step === 2 && <OnBoarding1 key="step2" currentStep={[step, maxStep]} onNext={handleNext} />}
+              {step === 3 && <OnBoarding2 key="step3" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
+              {step === 4 && <OnBoarding3 key="step4" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
+              {step === 5 && <OnBoarding4 key="step5" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
+              {step === 6 && <OnBoarding5 key="step6" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
+              {step === 7 && <OnBoarding6 key="step7" currentStep={[step, maxStep]} onNext={handleNext} onBack={handleBack} />}
             </AnimatePresence>
           </div>
         }

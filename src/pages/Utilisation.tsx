@@ -13,7 +13,7 @@ const Utilisation: React.FC = () => {
             <div style={{ padding: '15px' }}>
             <img src="/images/back.svg" alt="Retour" onClick={() => history.goBack()} />
             <div className='describe-title'>Conditions d’utilisation</div><br />
-            <div>Dernière mise à jour : 17/09/2024</div><br />
+            <div>Dernière mise à jour : 24/03/2025</div><br />
 
             <div>Bienvenue sur Feelmap ! Avant de commencer à utiliser notre application, nous vous invitons à lire attentivement ces conditions d’utilisation. En accédant à l’application et en l’utilisant, vous acceptez les présentes conditions.</div>
 
@@ -69,6 +69,9 @@ const Utilisation: React.FC = () => {
 
             <div className='describe-title'>9. Contact</div>
             <div>Pour toute question relative à ces conditions d’utilisation, vous pouvez nous contacter à l’adresse suivante : contact@feelmap-app.com</div>
+
+            <div className='describe-title'>Avertissement Important</div>
+            <div>Les textes, contenus et indicateurs (positifs ou négatifs) affichés dans cette application sont présentés à des fins purement ludiques et de divertissement. Ils ne doivent en aucun cas être interprétés comme des données médicales, scientifiques, psychologiques ou de tout autre domaine professionnel. Ils sont générés par un algorithme à des fins de divertissement et ne reflètent pas une réalité médicale ou un avis professionnel. Pour toute question ou préoccupation liée à votre santé physique ou mentale, ou nécessitant un avis expert, consultez un professionnel qualifié.</div>
         </div>
             </IonContent>
         </IonPage>

@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonContent,
   IonItem,
   IonList,
@@ -148,28 +149,29 @@ const Stats: React.FC = () => {
 
   return (
     <IonPage>
+
       <IonContent fullscreen>
         <div className="stats-container">
           <div className='title-container-stats'>
-          <h1 className="title" style={{ fontWeight: 400, marginBottom: 15 }}>
-            Statistiques
-          </h1>
-          <IonList>
-            <IonItem>
-              <IonSelect
-                aria-label="Time Range"
-                interface="popover"
-                value={selectedTimeRange}
-                onIonChange={handleTimeRangeChange}
-              >
-                {Object.entries(timeRangeOptions).map(([key, label]) => (
-                  <IonSelectOption key={key} value={key}>
-                    {label}
-                  </IonSelectOption>
-                ))}
-              </IonSelect>
-            </IonItem>
-          </IonList>
+            <h1 className="title" style={{ fontWeight: 400, marginBottom: 15 }}>
+              Statistiques
+            </h1>
+            <IonList>
+              <IonItem>
+                <IonSelect
+                  aria-label="Time Range"
+                  interface="popover"
+                  value={selectedTimeRange}
+                  onIonChange={handleTimeRangeChange}
+                >
+                  {Object.entries(timeRangeOptions).map(([key, label]) => (
+                    <IonSelectOption key={key} value={key}>
+                      {label}
+                    </IonSelectOption>
+                  ))}
+                </IonSelect>
+              </IonItem>
+            </IonList>
           </div>
 
 

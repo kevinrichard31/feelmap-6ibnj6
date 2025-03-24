@@ -15,7 +15,7 @@ const Confidentialite: React.FC = () => {
         <div className={styles['describe-title']}>
           Politique de Confidentialité
         </div>
-        <div className={styles['describe-title']}>Dernière mise à jour : 07/03/2025</div>
+        <div className={styles['describe-title']}>Dernière mise à jour : 24/03/2025</div>
         <div>
           Chez Feelmap, nous respectons votre vie privée et nous nous engageons à protéger vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et stockons vos informations dans le cadre de l'utilisation de notre application.
         </div>
@@ -63,6 +63,9 @@ const Confidentialite: React.FC = () => {
 
         <div className={styles['describe-title']}>9. Nous contacter</div>
         <div>Pour toute question ou préoccupation concernant cette politique de confidentialité, vous pouvez nous contacter à l'adresse suivante : contact@feelmap-app.com</div>
+
+        <div className={styles['describe-title']}>Avertissement Important</div>
+        <div>Les textes, contenus et indicateurs (positifs ou négatifs) affichés dans cette application sont présentés à des fins purement ludiques et de divertissement. Ils ne doivent en aucun cas être interprétés comme des données médicales, scientifiques, psychologiques ou de tout autre domaine professionnel. Ils sont générés par un algorithme à des fins de divertissement et ne reflètent pas une réalité médicale ou un avis professionnel. Pour toute question ou préoccupation liée à votre santé physique ou mentale, ou nécessitant un avis expert, consultez un professionnel qualifié.</div>
       </IonContent>
     </IonPage>
   );
