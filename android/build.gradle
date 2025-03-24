@@ -2,7 +2,8 @@
 
 buildscript {
     ext {
-        agp_version = '8.7.2' // Garde une seule version cohérente
+        agp_version = '8.7.2'
+        agp_version1 = '8.6.0'// Garde une seule version cohérente
     }
 
     repositories {
@@ -11,7 +12,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:$agp_version"
+        classpath "com.android.tools.build:gradle:$agp_version1"
         classpath 'com.google.gms:google-services:4.4.2'
     }
 }
