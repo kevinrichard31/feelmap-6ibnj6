@@ -29,7 +29,7 @@ const OnBoardingInformations: React.FC<Props> = ({ onNext, currentStep }) => {
         <p className={styles['onboarding-p']}>Les textes, contenus et indicateurs (positifs ou négatifs) affichés dans cette application sont présentés à des fins purement ludiques et de divertissement. Ils ne doivent en aucun cas être interprétés comme des données médicales, scientifiques, psychologiques ou de tout autre domaine professionnel. Ils sont générés par un algorithme à des fins de divertissement et ne reflètent pas une réalité médicale ou un avis professionnel. Pour toute question ou préoccupation liée à votre santé physique ou mentale, ou nécessitant un avis expert, consultez un professionnel qualifié.</p>
         {/* Bouton "Suivant" */}
         <div className={styles['next-container']}>
-          <button onClick={onNext} className={styles['next']}>Suivant</button>
+          <button onClick={onNext} className={styles['next']}>Je comprends</button>
         </div>
 
 

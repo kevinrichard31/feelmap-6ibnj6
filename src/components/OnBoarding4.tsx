@@ -30,15 +30,18 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
       onNext(); // Passe à l'étape suivante après l'activation réussie
     } catch (error: any) {
       console.error("Erreur lors de l'activation de la géolocalisation :", error);
+      setGeolocationEnabled(false);
+      setLoadingGeolocation(false);
+
       if (error.message.includes('denied')) {
-        alert("L'accès à la géolocalisation a été refusé. Veuillez l'activer dans les paramètres de votre application.");
+        alert("L'accès à la géolocalisation a été refusé. Activez-là dans les paramètres de l'application si vous souhaitez l'activer.");
       } else if (error.message.includes('unavailable')) {
         alert("La géolocalisation n'est pas disponible sur cet appareil.");
       } else {
         alert("Une erreur s'est produite lors de l'activation de la géolocalisation.");
       }
-      setGeolocationEnabled(false);
-      setLoadingGeolocation(false);
+       // Go to next screen even if denied or unavailable
+      onNext();
     }
   };
 
@@ -69,9 +72,8 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
               disabled={loadingGeolocation}
               style={{marginTop: '20px'}}
             >
-              {loadingGeolocation ? 'Activation...' : 'Activer la géolocalisation'}
+              {loadingGeolocation ? 'Activation...' : 'Suivant'}
             </button>
-            <div onClick={onNext} style={{fontSize: 13}}>Passer cette étape</div>
         </div>
 
       </motion.div>
