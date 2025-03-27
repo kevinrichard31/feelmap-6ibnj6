@@ -4,6 +4,11 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>fr</string>
+	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Feelmap</string>
 	<key>CFBundleExecutable</key>
@@ -45,9 +50,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Nous utilisons votre localisation pour vous fournir des recommandations de contenu basées sur votre emplacement actuel.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Cette application nécessite votre localisation pour fournir des fonctionnalités de géolocalisation.</string>
 </dict>
 </plist>

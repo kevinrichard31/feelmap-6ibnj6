@@ -1,0 +1,2 @@
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "We use your location to display your current position on the map and to geolocate your emotions in order to provide personalized recommendations based on your location and emotional state.";
+"NSLocationWhenInUseUsageDescription" = "This app requires your location to display your position on the map and to geolocate your emotions to personalize recommendations.";

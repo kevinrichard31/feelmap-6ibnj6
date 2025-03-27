@@ -48,7 +48,6 @@ const OnBoarding: React.FC<OnBoardingProps> = ({ setActiveTab }) => {  // Update
 
   useIonViewWillEnter(() => {
     // If onboarding is already completed, redirect to select page
-    console.log('hello')
     console.log(hasCompletedOnboarding)
     if (hasCompletedOnboarding) {
       setActiveTab('');  // Clear active tab before navigating
@@ -109,7 +108,6 @@ const OnBoarding: React.FC<OnBoardingProps> = ({ setActiveTab }) => {  // Update
             </AnimatePresence>
           </div>
         }
-
       </IonContent>
     </IonPage>
   );
