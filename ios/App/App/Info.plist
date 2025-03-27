@@ -4,11 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>fr</string>
-	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Feelmap</string>
 	<key>CFBundleExecutable</key>
@@ -50,5 +45,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Nous utilisons votre localisation pour afficher votre position actuelle sur la carte et pour géolocaliser vos émotions afin de vous offrir des recommandations personnalisées basées sur votre emplacement et votre état émotionnel.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Cette application nécessite votre localisation pour afficher votre position sur la carte et pour géolocaliser vos émotions, afin de personnaliser les recommandations.</string>
 </dict>
 </plist>
