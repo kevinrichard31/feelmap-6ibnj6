@@ -108,6 +108,7 @@ const Select: React.FC = () => {
       <IonContent
         fullscreen
         className='background-content'
+        forceOverscroll={false}
       >
         <div className="emotion-selector">
           <div className="title">
