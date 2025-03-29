@@ -28,7 +28,8 @@ html {
 }
 
 .describe .inputTextDescribe:focus {
-    caret-color: grey; /* Couleur du curseur d'écriture (caret) */
+    caret-color: grey;
+    /* Couleur du curseur d'écriture (caret) */
 
 }
 
@@ -42,7 +43,7 @@ html {
 }
 
 .describe .content-container {
-padding: 30px;
+    padding: 30px;
 }
 
 .describe .container-title {
@@ -60,14 +61,14 @@ padding: 30px;
 .describe .button-next {
     border-radius: 13px;
     font-size: 16px;
-    font-family: "'Agrandir regular'"!important;
+    font-family: "'Agrandir regular'" !important;
     font-weight: bold;
     color: black;
     --background: #FFCC00;
     overflow: hidden;
     height: 40px;
     text-transform: capitalize;
-    letter-spacing:0;
+    letter-spacing: 0;
 }
 
 .describe .textarea {
@@ -78,13 +79,28 @@ padding: 30px;
 .textarea-container {
     position: relative;
     width: 100%;
-  }
-  
-  .char-counter {
+}
+
+.char-counter {
     position: absolute;
     bottom: 8px;
     right: 8px;
     font-size: 12px;
     color: #666;
-  }
-  
+}
+
+
+
+@media(prefers-color-scheme: dark) {
+    .describe-title {
+        color: #fff;
+    }
+
+    .back-img {
+        filter: invert(1);
+    }
+
+    .textarea-container {
+        color: #fff;
+    }
+}

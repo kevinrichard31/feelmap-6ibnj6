@@ -119,3 +119,23 @@ h1 {
     align-items: center;
     gap: 15px;
 }
+
+@media(prefers-color-scheme: dark) {
+    .ionlist-select {
+        background: none;
+    }
+
+    h1 {
+        color: #fff;
+    }
+    
+    .icons-left {
+        color: #fff;
+    }
+
+    .arrow-chevron {
+        filter: invert(1);
+    }
+
+
+}

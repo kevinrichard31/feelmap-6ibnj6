@@ -99,7 +99,7 @@ const SelectPlace: React.FC = () => {
                   {t(place.name)}
                 </div>
               </div>
-              <img src="/images/chevron-right.svg" alt="" />
+              <img src="/images/chevron-right.svg" alt="" className='arrow-chevron'/>
             </div>
           ))}
 

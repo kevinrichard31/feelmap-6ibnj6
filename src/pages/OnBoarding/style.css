@@ -13,3 +13,17 @@
     position: relative;
     padding-top: 60px;
 }
+
+
+
+
+
+@media(prefers-color-scheme: dark) {
+    .background1-content {
+        background-image: none;
+    }
+
+    .background2-content {
+        background-image: none;
+    }
+}

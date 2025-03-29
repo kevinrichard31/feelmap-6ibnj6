@@ -45,3 +45,15 @@ http://ionicframework.com/docs/theming/ */
     --background: white;
     height: 70px;
   }
+
+
+  @media(prefers-color-scheme: dark){
+    ion-tab-bar {
+      --background: #222;
+      height: 70px;
+    }
+
+    .tab3-button-inside {
+      --background: #333;
+    }
+  }

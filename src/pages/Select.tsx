@@ -120,7 +120,7 @@ const Select: React.FC = () => {
           </div>
 
           <div className="choose-emotion">
-            {t('chooseyouremotion')} <img src="images/arrow-down.svg" alt="" />
+            {t('chooseyouremotion')} <img src="images/arrow-down.svg" alt="" className="arrow-down" />
           </div>
           <div className="wrap-emoji"
             onTouchStart={handlePointerStart}  // Détecte le début du toucher

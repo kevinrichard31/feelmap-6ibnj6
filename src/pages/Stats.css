@@ -61,3 +61,34 @@
     justify-content: space-between;
     margin-bottom: 15px;
 }
+
+
+@media(prefers-color-scheme: dark) {
+    .stats-container {
+        background-image: none;
+        background-color: #222;
+    }
+    
+
+    .card {
+        background-color: #333;
+        box-shadow: none;
+        color: #fff;
+    }
+
+    #background-content {
+        background: #222222 !important;
+        --background: #222222 !important;
+        --ion-background-color: #222222 !important;
+    }
+
+    ion-content {
+
+        --background: #222222 !important;
+    }
+
+    .subcategory-title {
+        color: #ffe7a4;
+    }
+
+}

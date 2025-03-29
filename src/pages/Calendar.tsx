@@ -132,13 +132,13 @@ const Calendar: React.FC = () => {
           {/* Navigation entre les mois */}
           <div className="calendar-navigation">
             <div onClick={() => changeMonth('previous')}>
-              <img src="/images/left.svg" alt="" />
+              <img src="/images/left.svg" alt="" className='arrow-calendar'/>
             </div>
             <span className="current-month">
               {monthNames[calendarDate.getMonth()]} {calendarDate.getFullYear()}
             </span>
             <div onClick={() => changeMonth('next')}>
-              <img src="/images/right.svg" alt="" />
+              <img src="/images/right.svg" alt="" className='arrow-calendar'/>
             </div>
           </div>
 

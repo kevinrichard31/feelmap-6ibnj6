@@ -18,7 +18,7 @@
 }
 
 .negative {
-  background-color: #707070; /* Rouge */
+  background-color: #af4c4c; /* Rouge */
 }
 
 .progress-container.negative-container { /* Class spécifique */
@@ -38,4 +38,15 @@
   font-size: 14px;
   color: grey;
   min-width: 35px;
+}
+
+@media(prefers-color-scheme: dark) {
+  .progress-container {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    background-color: #414141;
+    border-radius: 5px;
+    overflow: hidden;
+  }
 }

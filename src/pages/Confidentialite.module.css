@@ -82,3 +82,18 @@
     height: 30px;
     margin-top: 15px;
 }
+
+
+@media(prefers-color-scheme: dark) {
+    .describe-title {
+        color: #fff;
+    }
+
+    div {
+        color: #fff;
+    }
+
+    img[src="/images/back.svg"] {
+        filter: invert(1);
+      }
+}

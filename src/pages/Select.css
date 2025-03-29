@@ -48,7 +48,7 @@
 .choose-emotion {
     font-size: 14px;
     text-align: center;
-    padding-top:10px;
+    padding-top: 10px;
     padding-bottom: 5px;
 }
 
@@ -69,21 +69,49 @@
 }
 
 .background-content {
-    --background: #fff!important;
+    --background: #fff;
 }
 
 
-  .container-emoji-single.active {
-    transform: scale(1.2); /* Agrandissement lors du toucher */
+.container-emoji-single.active {
+    transform: scale(1.2);
+    /* Agrandissement lors du toucher */
     transition: transform 0.3s ease;
-  }
-  
-  .container-emoji-single.active2 {
-    transform: scale(1.2); /* Agrandissement lors du toucher */
-    transition: transform 0.1s ease;
-  }
-  
+}
 
-  .emotion-selector {
+.container-emoji-single.active2 {
+    transform: scale(1.2);
+    /* Agrandissement lors du toucher */
+    transition: transform 0.1s ease;
+}
+
+
+.emotion-selector {
     padding-top: 50px;
-  }
+}
+
+@media(prefers-color-scheme: dark) {
+    .background-content {
+        --background: #222222 !important;
+    }
+
+    .title,
+    .choose-emotion,
+    .emotion-selector,
+    .bold {
+        color: #fff !important;
+    }
+
+    .emotion-name {
+        color: black;
+    }
+
+    .arrow-down {
+        filter: invert(1);
+    }
+
+    .box {
+        opacity: 1;
+    }
+
+}
