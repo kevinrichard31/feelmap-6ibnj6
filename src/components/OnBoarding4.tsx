@@ -49,8 +49,6 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
        // Go to next screen even if denied or unavailable
       onNext();
     }
-      console.log("🌱 - requestGeolocation - position:", position)
-      console.log("🌱 - requestGeolocation - position:", position)
   };
 
   return (
