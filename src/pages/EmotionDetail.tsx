@@ -193,7 +193,7 @@ const EmotionDetail: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent fullscreen forceOverscroll={false}>
         <Search />
       </IonContent>
     </IonPage>

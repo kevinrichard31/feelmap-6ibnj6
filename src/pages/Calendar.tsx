@@ -127,7 +127,7 @@ const Calendar: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent fullscreen forceOverscroll={false}>
         <div className="calendar-container">
           {/* Navigation entre les mois */}
           <div className="calendar-navigation">

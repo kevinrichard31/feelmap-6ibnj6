@@ -150,7 +150,7 @@ const Stats: React.FC = () => {
   return (
     <IonPage>
 
-      <IonContent fullscreen>
+      <IonContent fullscreen forceOverscroll={false}>
         <div className="stats-container">
           <div className='title-container-stats'>
             <h1 className="title" style={{ fontWeight: 400, marginBottom: 15 }}>

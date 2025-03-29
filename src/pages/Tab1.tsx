@@ -130,7 +130,10 @@ const Tab1: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent 
+      fullscreen
+      forceOverscroll={false}
+      >
         {error && <div className="error-message">{error}</div>}
         <div id="map" style={{ height: '100%' }} />
       </IonContent>

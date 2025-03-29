@@ -114,7 +114,7 @@ const Describe: React.FC = () => {
 
   return (
     <IonPage className="describe">
-      <IonContent>
+      <IonContent forceOverscroll={false}>
         <div className='content-container'>
           <div className="container-input">
             <img src="/images/back.svg" alt="Retour" className="back-img" onClick={goToSelect} />

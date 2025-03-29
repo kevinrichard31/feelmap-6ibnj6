@@ -82,7 +82,7 @@ const SelectPlace: React.FC = () => {
 
   return (
     <IonPage className="describe">
-      <IonContent>
+      <IonContent forceOverscroll={false}>
         <h1 className='' style={{paddingTop: '20px'}}>{t('setyourlocation')}</h1>
         {error && <p className="error">{error}</p>}
         <IonList className='ionlist-select'>
