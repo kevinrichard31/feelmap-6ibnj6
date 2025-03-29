@@ -4,6 +4,7 @@ import Steps from './Steps';
 import { useBackgroundStore } from '../store/backgroundOnboarding';
 import { useEffect, useState } from 'react';
 import { Geolocation } from '@capacitor/geolocation';
+import { useGeolocationStore } from '../store/geolocation';
 
 interface Props {
   onNext: () => void;
@@ -15,6 +16,7 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
   const setBackgroundClass = useBackgroundStore((state) => state.setBackgroundClass);
   const [geolocationEnabled, setGeolocationEnabled] = useState(false);
   const [loadingGeolocation, setLoadingGeolocation] = useState(false);
+  const setGeolocation = useGeolocationStore((state) => state.setGeolocation);
 
   useEffect(() => {
     setBackgroundClass('background2-content');
@@ -23,7 +25,11 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
   const requestGeolocation = async () => {
     setLoadingGeolocation(true);
     try {
-      await Geolocation.getCurrentPosition({enableHighAccuracy: true});
+      const position = await Geolocation.getCurrentPosition({enableHighAccuracy: true});
+      console.log("position");
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+      setGeolocation(position.coords.latitude, position.coords.longitude);
       setGeolocationEnabled(true);
       setLoadingGeolocation(false);
       console.log("Géolocalisation activée avec succès !");
@@ -43,6 +49,8 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
        // Go to next screen even if denied or unavailable
       onNext();
     }
+      console.log("🌱 - requestGeolocation - position:", position)
+      console.log("🌱 - requestGeolocation - position:", position)
   };
 
   return (
