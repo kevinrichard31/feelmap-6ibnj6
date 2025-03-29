@@ -67,3 +67,7 @@ button.item-native {
   --background: transparent;
   --ripple-color: black; /* Couleur de l'effet ripple */
 }
+
+@media(prefers-color-scheme: dark){
+
+}
