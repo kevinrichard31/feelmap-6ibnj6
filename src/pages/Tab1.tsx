@@ -31,7 +31,7 @@ const Tab1: React.FC = () => {
       console.log("Longitude:", longitude);
     }, 2000);
   
-    // Coordonnées par défaut (Paris)
+    // Coordonnées par défaut (Paris)è
     const defaultLat = 48.8566;
     const defaultLng = 2.3522;
   

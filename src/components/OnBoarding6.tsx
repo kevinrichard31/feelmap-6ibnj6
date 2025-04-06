@@ -4,6 +4,7 @@ import Steps from './Steps';
 import { useBackgroundStore } from '../store/backgroundOnboarding';
 import { useEffect } from 'react';
 import { useIonRouter } from '@ionic/react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onNext: () => void;
@@ -14,7 +15,7 @@ interface Props {
 const OnBoarding6: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
   const setBackgroundClass = useBackgroundStore((state) => state.setBackgroundClass);
   const router = useIonRouter();
-
+  const { t } = useTranslation();
   useEffect(() => {
     setBackgroundClass('background2-content');
   }, [setBackgroundClass]); // Ajoute setBackgroundClass comme dépendance pour éviter des problèmes de closure.
@@ -29,18 +30,18 @@ const OnBoarding6: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
       >
         <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
         <div className={styles['title']} style={{ marginBottom: '15px' }}>
-        Prêt(e) à explorer 
+        {t('Prêt(e) à explorer ')}
           <br></br>
-          <span className={styles['title-bold']}>tes émotions ? 🚀</span>
+          <span className={styles['title-bold']}>{t('tes émotions ?')} 🚀</span>
         </div>
-        <p className={styles['onboarding-p']}>C'est parti ! Commence dès maintenant et prends soin de ton bien-être émotionnel.</p>
+        <p className={styles['onboarding-p']}>{t('onboarding6text1')}</p>
         <div className={styles['ob3traits-container']}>
           <img src="./images/onboarding/emojis.svg" alt="" className={styles['shield-image']} />
         </div>
         {/* Bouton "Suivant" */}
         <div className={styles['next-container']}>
           {/* <button onClick={onBack} className={styles['prev']}>Retour</button> */}
-          <button onClick={onNext} className={styles['next-second-color']} style={{marginTop: '0px'}}>C'est parti !</button>
+          <button onClick={onNext} className={styles['next-second-color']} style={{marginTop: '0px'}}>{t(`C'est parti !`)}</button>
         </div>
 
       </motion.div>

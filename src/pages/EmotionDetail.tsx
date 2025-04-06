@@ -178,7 +178,7 @@ const EmotionDetail: React.FC = () => {
                   <div className='animation-container'>
                     <DotLottieReact src='cook.json' loop autoplay className='cook-animation' />
                     <p className='analyse-progr'>
-                      Analyse en cours ({countdown}s)
+                    {t('analysing')} ({countdown}s)
                     </p>
                   </div>
 

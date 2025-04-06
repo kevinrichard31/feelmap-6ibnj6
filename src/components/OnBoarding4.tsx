@@ -5,6 +5,7 @@ import { useBackgroundStore } from '../store/backgroundOnboarding';
 import { useEffect, useState } from 'react';
 import { Geolocation } from '@capacitor/geolocation';
 import { useGeolocationStore } from '../store/geolocation';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onNext: () => void;
@@ -17,7 +18,7 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
   const [geolocationEnabled, setGeolocationEnabled] = useState(false);
   const [loadingGeolocation, setLoadingGeolocation] = useState(false);
   const setGeolocation = useGeolocationStore((state) => state.setGeolocation);
-
+  const { t } = useTranslation();
   useEffect(() => {
     setBackgroundClass('background2-content');
   }, [setBackgroundClass]);
@@ -61,11 +62,11 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
       >
         <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
         <div className={styles['title']} style={{ marginBottom: '15px' }}>
-          Où te sens-tu 
+        {t('Où te sens-tu')}
           <br></br>
-          <span className={styles['title-bold']}>vraiment bien ?</span>
+          <span className={styles['title-bold']}>{t('vraiment bien ?')}</span>
         </div>
-        <p className={styles['onboarding-p']}>Identifie les lieux qui boostent ton énergie et ceux qui te pèsent. Apprends à mieux choisir ton environnement.</p>
+        <p className={styles['onboarding-p']}>{t('onboarding4text1')}</p>
         <div className={styles['ob3traits-container']}>
           <img src="./images/onboarding/map.png" alt="" className={styles['map-image']} />
         </div>

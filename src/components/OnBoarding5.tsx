@@ -3,6 +3,7 @@ import styles from './OnBoarding1.module.css';
 import Steps from './Steps';
 import { useBackgroundStore } from '../store/backgroundOnboarding';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onNext: () => void;
@@ -12,7 +13,7 @@ interface Props {
 
 const OnBoarding5: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
   const setBackgroundClass = useBackgroundStore((state) => state.setBackgroundClass);
-
+  const { t } = useTranslation();
   useEffect(() => {
     setBackgroundClass('background2-content');
   }, [setBackgroundClass]); // Ajoute setBackgroundClass comme dépendance pour éviter des problèmes de closure.
@@ -27,18 +28,18 @@ const OnBoarding5: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
       >
         <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
         <div className={styles['title']} style={{ paddingTop: '45px', marginBottom: '15px' }}>
-          Espace
+          {t('Espace')}
           <br></br>
-          <span className={styles['title-bold']}>100% personnel 🔒</span>
+          <span className={styles['title-bold']}>{t('100% personnel')} 🔒</span>
         </div>
-        <p className={styles['onboarding-p']}>Tes émotions sont privées. Cet espace est à toi, et toi seul(e) y as accès.</p>
+        <p className={styles['onboarding-p']}>{t('onboarding5text1')}</p>
         <div className={styles['ob3traits-container']}>
           <img src="./images/onboarding/shield.svg" alt="" className={styles['shield-image']} />
         </div>
         {/* Bouton "Suivant" */}
         <div className={styles['next-container']}>
           {/* <button onClick={onBack} className={styles['prev']}>Retour</button> */}
-          <button onClick={onNext} className={styles['next-second-color']}>Suivant</button>
+          <button onClick={onNext} className={styles['next-second-color']}>{t('Next')}</button>
         </div>
 
       </motion.div>

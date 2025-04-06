@@ -3,6 +3,7 @@ import styles from './OnBoarding1.module.css';
 import Steps from './Steps';
 import { useEffect } from 'react';
 import { useBackgroundStore } from '../store/backgroundOnboarding';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onNext: () => void;
@@ -11,7 +12,7 @@ interface Props {
 
 const OnBoardingInformations: React.FC<Props> = ({ onNext, currentStep }) => {
   const setBackgroundClass = useBackgroundStore((state) => state.setBackgroundClass);
-
+  const { t } = useTranslation();
   useEffect(() => {
     setBackgroundClass('background1-content');
   }, [setBackgroundClass]); // Ajoute setBackgroundClass comme dépendance pour éviter des problèmes de closure.
@@ -25,13 +26,13 @@ const OnBoardingInformations: React.FC<Props> = ({ onNext, currentStep }) => {
         transition={{ duration: 0.5 }}
       >
 
-        <p className={`${styles['subtitle']} ${styles['onboarding-p']}`}>🔔 Information Importante</p>
-        <p className={styles['onboarding-p']}>Les textes, contenus et indicateurs (positifs ou négatifs) affichés dans cette application sont présentés à des fins purement ludiques et de divertissement. </p>
+        <p className={`${styles['subtitle']} ${styles['onboarding-p']}`}>🔔 {t('Important information')}</p>
+        <p className={styles['onboarding-p']}>{t('informationtext1')} </p>
         {/* Bouton "Suivant" */}
 
-        <p className={styles['onboarding-p']}>Pour toute question ou préoccupation liée à votre santé physique ou mentale, ou nécessitant un avis expert, consultez un professionnel qualifié.</p>
+        <p className={styles['onboarding-p']}>{t('informationtext2')}</p>
         <div className={styles['next-container']}>
-          <button onClick={onNext} className={styles['next']}>Je comprends</button>
+          <button onClick={onNext} className={styles['next']}>{t('I understand')}</button>
         </div>
 
 

@@ -14,6 +14,7 @@ import { getAggregatedScores, getUserTraits } from '../utils/api';
 import './Stats.css';
 import CenteredProgressBar from '../components/CenteredProgressBar';
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
+import { useTranslation } from 'react-i18next';
 
 type Score = number;
 
@@ -67,7 +68,7 @@ const Stats: React.FC = () => {
   const [scores, setScores] = useState<Scores>(initialScores);
   const [traits, setTraits] = useState<Trait[] | null>(null);
   const [selectedTimeRange, setSelectedTimeRange] = useState<TimeRangeKey>('last_7_days');
-
+  const { t } = useTranslation();
   const fetchScores = useCallback(
     async (timeRange: TimeRangeKey) => {
       const userId = localStorage.getItem('userId');
@@ -154,7 +155,7 @@ const Stats: React.FC = () => {
         <div className="stats-container">
           <div className='title-container-stats'>
             <h1 className="title" style={{ fontWeight: 400, marginBottom: 15 }}>
-              Statistiques
+              {t('stats.title')}
             </h1>
             <IonList>
               <IonItem>
@@ -166,7 +167,7 @@ const Stats: React.FC = () => {
                 >
                   {Object.entries(timeRangeOptions).map(([key, label]) => (
                     <IonSelectOption key={key} value={key}>
-                      {label}
+                      {t(`stats.timeRange.${key}`)}
                     </IonSelectOption>
                   ))}
                 </IonSelect>
@@ -178,30 +179,30 @@ const Stats: React.FC = () => {
           {/* Santé */}
           <div className="card">
             <h1 className="title" style={{ position: 'relative' }}>
-              Moi <img className="me-smile-img" src="/images/me-smile.svg" alt="" />
+              {t('stats.me.title')} <img className="me-smile-img" src="/images/me-smile.svg" alt="" />
             </h1>
-            <p className="tagline">Nourris ton bien-être et révèle ton potentiel ! 🍃✨</p>
-            <div className="subcategory-title">Équilibre vital</div>
+            <p className="tagline">{t('stats.me.tagline')}</p>
+            <div className="subcategory-title">{t('stats.me.vitalBalance')}</div>
             <div className="container-stats-key">
-              <div className="container-stats-name">Physique</div>
+              <div className="container-stats-name">{t('stats.me.physical')}</div>
               <CenteredProgressBar value={scores.physical_score} />
             </div>
 
             <div className="container-stats-key">
-              <div className="container-stats-name">Nutritionnelle</div>
+              <div className="container-stats-name">{t('stats.me.nutritional')}</div>
               <CenteredProgressBar value={scores.nutrition_score} />
             </div>
 
             <div className="container-stats-key">
-              <div className="container-stats-name">Mentale</div>
+              <div className="container-stats-name">{t('stats.me.mental')}</div>
               <CenteredProgressBar value={scores.mental_score} />
             </div>
 
             <hr />
             <hr />
-            <div className="subcategory-title">Esprit</div>
+            <div className="subcategory-title">{t('stats.me.spirit')}</div>
             <div className="container-stats-key">
-              <div className="container-stats-name">Score de relaxation</div>
+              <div className="container-stats-name">{t('stats.me.relaxationScore')}</div>
               <CenteredProgressBar value={scores.relaxation_score} />
             </div>
           </div>
@@ -209,23 +210,23 @@ const Stats: React.FC = () => {
           {/* Cercle Social */}
           <div className="card">
             <h1 className="title" style={{ position: 'relative' }}>
-              Mon entourage <img className="me-smile-img" src="/images/entourage.svg" alt="" />
+              {t('stats.socialCircle.title')} <img className="me-smile-img" src="/images/entourage.svg" alt="" />
             </h1>
-            <p className="tagline">Cultive tes liens et vois ceux que tu aimes s'épanouir ! 🌱✨</p>
+            <p className="tagline">{t('stats.socialCircle.tagline')}</p>
             <div className="container-stats-key">
-              <div className="container-stats-name">Famille</div>
+              <div className="container-stats-name">{t('stats.socialCircle.family')}</div>
               <CenteredProgressBar value={scores.family_only_score} />
             </div>
             <div className="container-stats-key">
-              <div className="container-stats-name">Amour</div>
+              <div className="container-stats-name">{t('stats.socialCircle.love')}</div>
               <CenteredProgressBar value={scores.couple_love_score} />
             </div>
             <div className="container-stats-key">
-              <div className="container-stats-name">Amis</div>
+              <div className="container-stats-name">{t('stats.socialCircle.friends')}</div>
               <CenteredProgressBar value={scores.best_friends_score} />
             </div>
             <div className="container-stats-key">
-              <div className="container-stats-name">Collègues</div>
+              <div className="container-stats-name">{t('stats.socialCircle.colleagues')}</div>
               <CenteredProgressBar value={scores.workmate_score} />
             </div>
           </div>
@@ -234,18 +235,12 @@ const Stats: React.FC = () => {
           {/* Traits Section */}
 
           <div className="card">
-            <h1 className="title">Données avancées</h1>
-            <p className="tagline">Explore tes données et découvre tous tes progrès !</p>
+            <h1 className="title">{t('stats.advancedData.title')}</h1>
+            <p className="tagline">{t('stats.advancedData.tagline')}</p>
             {['health', 'personality', 'interests'].map((type) => (
               <div className="--group" key={type}>
                 <div className="subcategory-title">
-                  {type === 'health'
-                    ? 'Santé'
-                    : type === 'personality'
-                      ? 'Personnalité'
-                      : type === 'interests'
-                        ? 'Intérêts'
-                        : 'Autres'}
+                  {t(`stats.traitTypes.${type}`)}
                 </div>
                 {groupedTraits[type] && groupedTraits[type].length > 0 ? (
                   [...groupedTraits[type]] // Create a copy to avoid modifying the original
@@ -258,14 +253,14 @@ const Stats: React.FC = () => {
                       </div>
                     ))
                 ) : (
-                  <p>Aucun trait trouvé pour ce type.</p>
+                  <p>{t('stats.noTraitsFound')}</p>
                 )}
               </div>
             ))}
           </div>
 
           <div style={{ height: '300px', color: 'grey', fontSize: '12px' }}>
-          Les textes, contenus et indicateurs (positifs ou négatifs) affichés dans cette application sont présentés à des fins purement ludiques et de divertissement. Ils ne doivent en aucun cas être interprétés comme des données médicales, scientifiques, psychologiques ou de tout autre domaine professionnel. Ils sont générés par un algorithme à des fins de divertissement et ne reflètent pas une réalité médicale ou un avis professionnel. Pour toute question ou préoccupation liée à votre santé physique ou mentale, ou nécessitant un avis expert, consultez un professionnel qualifié.
+          {t('stats.disclaimer')}
           </div>
         </div>
       </IonContent>

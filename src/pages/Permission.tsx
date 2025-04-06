@@ -1,38 +1,40 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-// import './permission.css';
+import React from 'react';
 import { IonContent, IonPage, useIonRouter } from '@ionic/react';
-
+import { useTranslation } from 'react-i18next';
+// import './permission.css'; // Consider removing if unused
 
 const Permission: React.FC = () => {
-  const router = useIonRouter();
-  return (
-    <IonPage>
-      <IonContent className="ion-padding">
-      <img src="/images/back.svg" alt="Retour"onClick={() => router.goBack()}/>
-        <div style={{ padding: '15px' }}>
-          <div className='describe-title'>Permissions</div>
-          <div>Pour vous offrir la meilleure expérience possible, Feelmap requiert certaines permissions sur votre appareil. Vous pouvez consulter et modifier ces autorisations à tout moment.</div>
-          <div className='describe-title'>1. Localisation</div>
+    const router = useIonRouter();
+    const { t } = useTranslation();
 
-          <ul>
-            <li><strong>Pourquoi ?</strong> : Feelmap utilise votre localisation pour cartographier vos émotions en fonction des lieux où vous les avez exprimées.</li>
-            <li><strong>Comment ?</strong> : Votre position est anonymisée et utilisée uniquement pour afficher vos émotions sur la carte. Ces informations ne sont pas partagées avec des tiers.</li>
-            <li>Gérer cette permission : Vous pouvez activer ou désactiver cette permission via les paramètres de votre navigateur.</li>
-          </ul>
+    return (
+        <IonPage>
+            <IonContent className="ion-padding">
+                <div style={{ padding: '15px' }}>
+                    <img src="/images/back.svg" alt={t('permissionPage.backButtonAlt')} onClick={() => router.goBack()} />
+                    <div className='describe-title'>{t('permissionPage.title')}</div>
+                    <div>{t('permissionPage.intro')}</div>
 
-          <div className='describe-title'>2. Stockage local (Local Storage)</div>
-          <ul>
-            <li><strong>Pourquoi ?</strong> : Nous stockons vos données d'émotions et de localisation dans le local storage pour vous permettre de consulter votre historique émotionnel dans un calendrier.</li>
-            <li><strong>Comment ?</strong> : Ces données sont enregistrées localement et transmises à nos serveurs pour permettre de vous authentifier, ce sont des données obligatoires.</li>
-          </ul>
+                    <div className='describe-title'>{t('permissionPage.locationTitle')}</div>
 
-          <div><strong>Note</strong> : La désactivation de certaines permissions peut limiter les fonctionnalités de l'application, comme la possibilité de visualiser vos émotions sur la carte ou de consulter votre historique.</div>
-        </div>
-      </IonContent>
-    </IonPage>
+                    <ul>
+                        <li><strong>{t('permissionPage.locationWhyTitle')}</strong>: {t('permissionPage.locationWhyContent')}</li>
+                        <li><strong>{t('permissionPage.locationHowTitle')}</strong>: {t('permissionPage.locationHowContent')}</li>
+                        <li>{t('permissionPage.locationManage')}</li>
+                    </ul>
 
-  );
+                    <div className='describe-title'>{t('permissionPage.storageTitle')}</div>
+                    <ul>
+                        <li><strong>{t('permissionPage.storageWhyTitle')}</strong>: {t('permissionPage.storageWhyContent')}</li>
+                        <li><strong>{t('permissionPage.storageHowTitle')}</strong>: {t('permissionPage.storageHowContent')}</li>
+                    </ul>
+
+                    <div><strong>{t('permissionPage.noteTitle')}</strong>: {t('permissionPage.noteContent')}</div>
+                </div>
+            </IonContent>
+        </IonPage>
+    );
 };
 
 export default Permission;

@@ -1,9 +1,22 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonLabel, IonButton, IonIcon, IonText, useIonRouter } from '@ionic/react';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonIcon,
+  IonText,
+  useIonRouter,
+} from '@ionic/react';
 
 import { useEffect, useState } from 'react';
 import { arrowBackOutline, copyOutline } from 'ionicons/icons';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styles from './Params.module.css';
+import { useTranslation } from 'react-i18next';
 
 const Params: React.FC = () => {
   const [feelmapId, setFeelmapId] = useState<string | null>(null);
@@ -12,23 +25,23 @@ const Params: React.FC = () => {
   const [copyMessage, setCopyMessage] = useState<string | null>(null);
   const history = useHistory();
   const router = useIonRouter();
+  const { t } = useTranslation();
 
   useEffect(() => {
-
     const id = localStorage.getItem('password');
     setFeelmapId(id);
-
   }, []);
 
   const handleCopy = () => {
     if (feelmapId) {
-      navigator.clipboard.writeText(feelmapId)
+      navigator.clipboard
+        .writeText(feelmapId)
         .then(() => {
-          setCopyMessage('Identifiant copié !');
+          setCopyMessage(t('params.idCopied'));
           setTimeout(() => setCopyMessage(null), 2000);
         })
-        .catch(err => {
-          setError('Erreur lors de la copie');
+        .catch((err) => {
+          setError(t('params.copyError'));
         });
     }
   };
@@ -36,53 +49,80 @@ const Params: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-
         <div style={{ padding: '15px', paddingTop: '50px' }}>
-        <img src="/images/back.svg" alt="Retour" className={styles['back-img']} onClick={() => history.goBack()}/>
-          <div className={styles['describe-title']}>Paramètres</div>
+          <img
+            src="/images/back.svg"
+            alt={t('params.back')}
+            className={styles['back-img']}
+            onClick={() => history.goBack()}
+          />
+          <div className={styles['describe-title']}>{t('params.title')}</div>
 
           <div className={styles['container-id-copy']}>
             <div className={styles['container-id']}>
-              <div className={styles['describe-title2']}>Mon identifiant Feelmap</div>
-              <div className={styles['feelmap-id']}>{feelmapId ? feelmapId : 'Non disponible'}</div>
+              <div className={styles['describe-title2']}>
+                {t('params.myFeelmapId')}
+              </div>
+              <div className={styles['feelmap-id']}>
+                {feelmapId ? feelmapId : t('params.notAvailable')}
+              </div>
             </div>
             <IonButton className={styles['button-copy']} onClick={handleCopy}>
-              Copier
+              {t('params.copy')}
               <IonIcon icon={copyOutline} slot="end" />
             </IonButton>
           </div>
 
-          {copyMessage && <div className={styles['copy-message']}>{copyMessage}</div>}
+          {copyMessage && (
+            <div className={styles['copy-message']}>{copyMessage}</div>
+          )}
           {error && <div className={styles['error-message']}>{error}</div>}
 
           <IonText>
-            <p>Cet identifiant est votre clé d'accès à vos données. Notez-le quelque part pour les retrouver, les modifier ou les supprimer à tout moment.</p>
+            <p>{t('params.idDescription')}</p>
           </IonText>
 
-          <IonItem button onClick={() => router.push('/restoredata')} style={{paddingLeft: 0}}>
-            <IonLabel className={styles['describe-title']}>Récupérer mes données</IonLabel>
+          <IonItem
+            button
+            onClick={() => router.push('/restoredata')}
+            style={{ paddingLeft: 0 }}
+          >
+            <IonLabel className={styles['describe-title']}>
+              {t('params.restoreData')}
+            </IonLabel>
           </IonItem>
 
-          <IonItem button onClick={() => router.push('/erasedata')} style={{paddingLeft: 0}}>
-            <IonLabel className={styles['describe-title']}>Effacer mes données</IonLabel>
+          <IonItem
+            button
+            onClick={() => router.push('/erasedata')}
+            style={{ paddingLeft: 0 }}
+          >
+            <IonLabel className={styles['describe-title']}>
+              {t('params.eraseData')}
+            </IonLabel>
           </IonItem>
         </div>
         <hr />
 
-
         <div style={{ padding: '15px' }}>
-        <IonText>
-          <p>Les données sont stockées dans les cookies de votre navigateur principal. Si vous les supprimez, vous devrez restaurer vos données à l’aide de votre identifiant.</p>
-        </IonText>
-        <hr />
+          <IonText>
+            <p>{t('params.cookieDescription')}</p>
+          </IonText>
+          <hr />
           <IonItem button onClick={() => router.push('/params/confidentialite')}>
-            <IonLabel className={styles['describe-title']}>Politique de confidentialité</IonLabel>
+            <IonLabel className={styles['describe-title']}>
+              {t('params.privacyPolicy')}
+            </IonLabel>
           </IonItem>
           <IonItem button onClick={() => router.push('/params/utilisation')}>
-            <IonLabel className={styles['describe-title']}>Conditions d’utilisation</IonLabel>
+            <IonLabel className={styles['describe-title']}>
+              {t('params.termsOfUse')}
+            </IonLabel>
           </IonItem>
           <IonItem button onClick={() => router.push('/params/permission')}>
-            <IonLabel className={styles['describe-title']}>Permissions</IonLabel>
+            <IonLabel className={styles['describe-title']}>
+              {t('params.permissions')}
+            </IonLabel>
           </IonItem>
         </div>
       </IonContent>

@@ -3,6 +3,7 @@ import styles from './OnBoarding1.module.css';
 import Steps from './Steps';
 import { useBackgroundStore } from '../store/backgroundOnboarding';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onNext: () => void;
@@ -12,7 +13,7 @@ interface Props {
 
 const OnBoarding3: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
   const setBackgroundClass = useBackgroundStore((state) => state.setBackgroundClass);
-
+  const { t } = useTranslation();
   useEffect(() => {
     setBackgroundClass('background2-content');
     console.log('hello');
@@ -27,18 +28,18 @@ const OnBoarding3: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
         transition={{ duration: 0.5 }}
       >
         <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
-        <div className={styles['title']} style={{ paddingTop: '45px', marginBottom: '15px' }}><span className={styles['title-bold']}>Explore</span>
+        <div className={styles['title']} style={{ paddingTop: '45px', marginBottom: '15px' }}><span className={styles['title-bold']}>{t('Explore')}</span>
           <br></br>
-          qui tu es vraiment
+          {t('qui tu es vraiment')}
         </div>
-        <p className={styles['onboarding-p']}>Visualise tes hauts, tes bas et tout ce qu’il y a entre les deux. Apprends à mieux comprendre tes émotions jour après jour.</p>
+        <p className={styles['onboarding-p']}>{t('onboarding3text')}</p>
         <div className={styles['ob3traits-container']}>
           <img src="./images/onboarding/ob3traits.svg" alt="" className={styles['image']} />
         </div>
         {/* Bouton "Suivant" */}
         <div className={styles['next-container']}>
           {/* <button onClick={onBack} className={styles['prev']}>Retour</button> */}
-          <button onClick={onNext} className={styles['next-second-color']} style={{marginTop: '15px'}}>Suivant</button>
+          <button onClick={onNext} className={styles['next-second-color']} style={{marginTop: '15px'}}>{t('Next')}</button>
         </div>
 
       </motion.div>

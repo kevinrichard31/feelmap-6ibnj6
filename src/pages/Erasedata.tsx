@@ -18,6 +18,7 @@ import {
 import { arrowBackOutline, warningOutline } from 'ionicons/icons';
 import { deleteUserData } from '../utils/api'; // Adjust the path as needed
 import { useHistory } from 'react-router-dom'; // Correct import for Ionic
+import { useTranslation } from 'react-i18next';
 
 const Erasedata: React.FC = () => {
   const router = useIonRouter();
@@ -27,6 +28,7 @@ const Erasedata: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showAlert, setShowAlert] = useState(false); // Control the alert
   const history = useHistory();
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Retrieve credentials from localStorage
@@ -43,21 +45,21 @@ const Erasedata: React.FC = () => {
       try {
         const result = await deleteUserData(password); // Call the API to delete data
         if (result) {
-          setMessage('Vos données ont été supprimées avec succès.');
+          setMessage(t('erase_data.success_message'));
           setError(null); // Clear any previous errors
           localStorage.removeItem('password'); // Optionally clear localStorage
           localStorage.removeItem('userId');
         } else {
-          setError('Erreur lors de la suppression des données.');
+          setError(t('erase_data.deletion_error'));
           setMessage(null); // Clear any previous messages
         }
       } catch (err) {
-        setError('Erreur lors de la suppression des données.');
+        setError(t('erase_data.deletion_error'));
         setMessage(null); // Clear any previous messages
         console.error("Error during data deletion:", err);
       }
     } else {
-      setError('Aucun mot de passe trouvé.');
+      setError(t('erase_data.no_password_found'));
       setMessage(null);
     }
   };
@@ -70,43 +72,43 @@ const Erasedata: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div style={{ padding: '15px' }}>
-        <img src="/images/back.svg" alt="Retour" onClick={() => history.goBack()} />
-        <div className='describe-title'>Effacer mes données</div><br />
+        <img src="/images/back.svg" alt={t('general.back')} onClick={() => history.goBack()} />
+        <div className='describe-title'>{t('erase_data.title')}</div><br />
       
           <IonText>
-            <p>Si vous procédez, vos données seront supprimées instantanément. Êtes-vous sûr de vouloir continuer ?</p>
+            <p>{t('erase_data.confirmation_text')}</p>
           </IonText>
 
           {error && <IonText color="danger"><p>{error}</p></IonText>}
           {message && <IonText color="success"><p>{message}</p></IonText>}
 
           <IonButton expand="full" color="danger" onClick={() => setShowAlert(true)}>
-            Oui, supprimer mes données
+            {t('erase_data.confirm_delete_button')}
           </IonButton>
 
           <IonButton expand="full" onClick={handleCancel}>
-            Non, annuler
+            {t('erase_data.cancel_button')}
           </IonButton>
 
           <IonText>
-            <p className='info'>Si vous avez un autre identifiant et que vous souhaitez supprimer vos données, restaurez les données avec votre autre identifiant puis supprimez vos données.</p>
+            <p className='info'>{t('erase_data.info_text')}</p>
           </IonText>
 
           <IonAlert
             isOpen={showAlert}
             onDidDismiss={() => setShowAlert(false)}
-            header={'Confirmation de suppression'}
-            message={'Êtes-vous sûr de vouloir supprimer vos données ? Cette action est irréversible.'}
+            header={t('erase_data.alert_header')}
+            message={t('erase_data.alert_message')}
             buttons={[
               {
-                text: 'Annuler',
+                text: t('general.cancel'),
                 role: 'cancel',
                 cssClass: 'secondary',
                 handler: () => {
                   console.log('Suppression annulée');
                 }
               }, {
-                text: 'Supprimer',
+                text: t('erase_data.alert_confirm_delete'),
                 handler: () => {
                   handleDelete();
                 }

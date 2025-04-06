@@ -3,6 +3,7 @@ import styles from './OnBoarding1.module.css';
 import Steps from './Steps';
 import { useBackgroundStore } from '../store/backgroundOnboarding';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onNext: () => void;
@@ -12,7 +13,7 @@ interface Props {
 
 const OnBoarding2: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
   const setBackgroundClass = useBackgroundStore((state) => state.setBackgroundClass);
-
+  const { t } = useTranslation();
   useEffect(() => {
     setBackgroundClass('background2-content');
     console.log('hello');
@@ -27,10 +28,10 @@ const OnBoarding2: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
         transition={{ duration: 0.5 }}
       >
         <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
-        <div className={styles['title']} style={{ paddingTop: '45px', marginBottom: '15px' }}>Note tes émotions <br></br>
-          <span className={styles['title-bold']}>au quotidien ✍️</span>
+        <div className={styles['title']} style={{ paddingTop: '45px', marginBottom: '15px' }}>{t('reviewyouremotions')}<br></br>
+          <span className={styles['title-bold']}>{t('au quotidien')} ✍️</span>
         </div>
-        <p className={styles['onboarding-p']}>Prends quelques secondes chaque jour pour noter comment tu te sens. Cela t’aidera à mieux comprendre ton état d’esprit.</p>
+        <p className={styles['onboarding-p']}>{t('onboarding2text1')}</p>
         <div className={styles['square-container']} style={{marginTop: '30px'}}>
           <div className={styles['square']}>
           </div>
@@ -40,7 +41,7 @@ const OnBoarding2: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
         {/* Bouton "Suivant" */}
         <div className={styles['next-container']}>
           {/* <button onClick={onBack} className={styles['prev']}>Retour</button> */}
-          <button onClick={onNext} className={styles['next-second-color']}>Suivant</button>
+          <button onClick={onNext} className={styles['next-second-color']}>{t('Next')}</button>
         </div>
 
       </motion.div>

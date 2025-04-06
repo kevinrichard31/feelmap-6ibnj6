@@ -3,6 +3,7 @@ import styles from './OnBoarding1.module.css';
 import Steps from './Steps';
 import { useEffect } from 'react';
 import { useBackgroundStore } from '../store/backgroundOnboarding';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   onNext: () => void;
@@ -11,7 +12,7 @@ interface Props {
 
 const OnBoarding1: React.FC<Props> = ({ onNext, currentStep }) => {
   const setBackgroundClass = useBackgroundStore((state) => state.setBackgroundClass);
-
+  const { t } = useTranslation();
   useEffect(() => {
     setBackgroundClass('background1-content');
   }, [setBackgroundClass]); // Ajoute setBackgroundClass comme dépendance pour éviter des problèmes de closure.
@@ -25,15 +26,15 @@ const OnBoarding1: React.FC<Props> = ({ onNext, currentStep }) => {
         transition={{ duration: 0.5 }}
       >
         <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
-        <div className={styles['title']}>Bienvenue dans <br></br>
+        <div className={styles['title']}>{t('Bienvenue dans')} <br></br>
           <span className={styles['title-bold']}>Feelmap</span>
         </div>
-        <p className={`${styles['subtitle']} ${styles['onboarding-p']}`}>Ici, tu peux exprimer et comprendre tes émotions.</p>
-        <p className={styles['onboarding-p']}>Tu ressens plein d’émotions chaque jour. Ici, tu peux les noter, les comprendre et voir comment elles évoluent avec le temps.</p>
+        <p className={`${styles['subtitle']} ${styles['onboarding-p']}`}>{t('onboardingtext1')}</p>
+        <p className={styles['onboarding-p']}>{t('onboardingtext2')}</p>
 
         {/* Bouton "Suivant" */}
         <div className={styles['next-container']}>
-          <button onClick={onNext} className={styles['next']}>Suivant</button>
+          <button onClick={onNext} className={styles['next']}>{t('Next')}</button>
         </div>
 
         
