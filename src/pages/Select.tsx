@@ -113,10 +113,10 @@ const Select: React.FC = () => {
         <div className="emotion-selector">
           <div className="title">
             {t('howdoyoufeel')}, <br /> <span className='bold'>{t('now')}</span>
-            <button onClick={() => i18n.changeLanguage('br')}>br</button>
+            {/* <button onClick={() => i18n.changeLanguage('br')}>br</button>
             <button onClick={() => i18n.changeLanguage('jp')}>jp</button>
             <button onClick={() => i18n.changeLanguage('fr')}>fr</button>
-            <button onClick={() => i18n.changeLanguage('en')}>en</button>
+            <button onClick={() => i18n.changeLanguage('en')}>en</button> */}
           </div>
 
           <div className="choose-emotion">
