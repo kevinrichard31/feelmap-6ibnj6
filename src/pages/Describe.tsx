@@ -143,7 +143,7 @@ const Describe: React.FC = () => {
               disabled={isSaving || charCount === 0}
               expand="full"
             >
-              {isSaving ? 'Enregistrement...' : t('register')}
+              {isSaving ? t('register') : t('register')}
             </IonButton>
             {error && <div className="error-message">{error}</div>}
           </div>
