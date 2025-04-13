@@ -7,7 +7,7 @@ import './Describe.css';
 import { useTranslation } from 'react-i18next';
 import { Geolocation } from '@capacitor/geolocation';
 
-const MAX_CHARS = 500;
+const MAX_CHARS = 1000;
 
 const Describe: React.FC = () => {
   const { emotion, image, background, latitude, longitude, setEmotion } = useEmotion();
