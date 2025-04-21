@@ -1,156 +1,194 @@
 // Survey.tsx
 import React, { useState, useRef } from "react";
-import * as SurveyCore from "survey-core";
-import { Survey as SurveyComponent } from "survey-react-ui";
 import {
-    IonModal,
-    IonButton,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonIcon,
-    IonButtons,
-    // Optionnel: Pour un meilleur feedback utilisateur
-    IonToast
+  IonModal,
+  IonButton,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonIcon,
+  IonButtons,
+  IonItem,
+  IonLabel,
+  IonTextarea,
+  IonToast
 } from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
-import "survey-core/survey-core.css";
 import { useSurveyStore } from "../store/surveyStore";
-import { submitSurvey } from "../utils/api"; // 👈 Importe la fonction API
-
-const surveyJson = {
-    "locale": "fr",
-    "pages": [
-        {
-            "elements": [
-                {
-                    "type": "rating",
-                    "name": "question1", // Correspond à rating / SurveyData.question1
-                    "title": "Donnez une note à l'application ?"
-                },
-                {
-                    "type": "comment",
-                    "name": "question2", // Correspond à comment / SurveyData.question2
-                    "title": "Une idée d'amélioration ?"
-                }
-            ]
-        }
-    ],
-    "headerView": "advanced"
-};
+import { submitSurvey } from "../utils/api";
 
 const Survey: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const modalRef = useRef<HTMLIonModalElement>(null);
-    const { hasSubmittedSurvey, setHasSubmittedSurvey } = useSurveyStore();
-    // Optionnel: état pour gérer les messages (succès/erreur)
-    const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const modalRef = useRef<HTMLIonModalElement>(null);
+  const { hasSubmittedSurvey, setHasSubmittedSurvey } = useSurveyStore();
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-    // Crée une instance du modèle de sondage
-    const survey = new SurveyCore.Model(surveyJson);
-    const userId = localStorage.getItem('userId') || '';
-    // Gère l'événement de complétion du sondage
-    survey.onComplete.add(async (sender) => { // 👈 Rendre la fonction async
-        console.log("Résultats du sondage capturés :", sender.data);
+  const [rating, setRating] = useState<number | undefined>(undefined);
+  const [comment, setComment] = useState<string>("");
 
-        // Le type de sender.data doit être compatible avec l'interface SurveyData
-        // définie dans api.ts ({ question1: number, question2?: string })
-        // Ce qui est le cas ici car les 'name' correspondent.
+  const userId = localStorage.getItem("userId") || "";
+  const commentRef = useRef<HTMLIonTextareaElement>(null);
+  const MAX_CHARS = 500;
+  const [charCount, setCharCount] = useState(0);
+  
+  const handleTextChange = (event: CustomEvent) => {
+    const text = (event.detail.value || "") as string;
+    let newText = text;
+  
+    if (text.length > MAX_CHARS) {
+      newText = text.slice(0, MAX_CHARS);
+    }
+  
+    setCharCount(newText.length);
+  
+    if (commentRef.current) {
+      commentRef.current.value = newText;
+    }
+  };
+  const handleSubmit = async () => {
+    if (!rating) {
+      alert("Merci de donner une note avant de soumettre.");
+      return;
+    }
+  
+    const commentValue = commentRef.current?.value?.trim() || undefined;
+  
+    const surveyData = {
+      question1: rating,
+      question2: commentValue,
+    };
+  
+    try {
+      const result = await submitSurvey(surveyData, userId);
+      console.log("Réponse du serveur après soumission :", result);
+  
+      setIsOpen(false);
+      setToastMessage("Merci pour votre retour !");
+    } catch (error) {
+      console.error("Erreur lors de l'envoi :", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Erreur inconnue.";
+      alert(`Erreur : ${errorMessage}`);
+    }
+  };
 
-        try {
-            // Appelle la fonction API pour envoyer les données au backend
-            const result = await submitSurvey(sender.data, userId); // 👈 Appel API avec await
-            console.log("Réponse du serveur après soumission :", result);
+  return (
+    <>
+      {!hasSubmittedSurvey && (
+        <div className="sticky-survey-button" onClick={() => setIsOpen(true)}>
+          Vos idées
+        </div>
+      )}
 
-            // Si l'envoi réussit:
-            // setHasSubmittedSurvey(true);
-            setIsOpen(false);           // Fermer la modale
+      <IonModal isOpen={isOpen} ref={modalRef} onDidDismiss={() => setIsOpen(false)} style={{paddingTop: '100px'}}>
+        <IonHeader>
+          <IonToolbar>
+            <div style={{paddingLeft: '15px'}}>Vos idées</div>
+            <IonButtons slot="end" >
+              <IonButton onClick={() => setIsOpen(false)}>
+                <IonIcon icon={closeOutline} color="dark" />
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
 
-
-            // Alternative avec IonToast:
-            setToastMessage("Merci pour votre retour, il nous est précieux pour continuer à améliorer nos services.");
-
-        } catch (error) {
-            // Si l'envoi échoue:
-            console.error("Échec de l'envoi du sondage au backend:", error);
-
-            // Informer l'utilisateur de l'échec (simple alert ici)
-            // Tente d'afficher un message plus précis si disponible
-            const errorMessage = error instanceof Error ? error.message : 'Une erreur inconnue est survenue.';
-            alert(`Erreur lors de l'envoi du sondage : ${errorMessage}. Veuillez réessayer.`);
-            // Alternative avec IonToast:
-            // setToastMessage(`Erreur : ${errorMessage}`);
-
-            // Ne pas fermer la modale et ne pas marquer comme soumis
-            // pour permettre à l'utilisateur de potentiellement réessayer.
-        }
-    });
-
-    return (
-        <>
-            {/* Affiche le bouton seulement si le sondage n'a pas été soumis */}
-            {!hasSubmittedSurvey && (
-                <div
-                    className="sticky-survey-button"
-                    onClick={() => setIsOpen(true)}
+        <IonContent className="ion-padding">
+          <IonItem lines="none">
+            <IonLabel position="stacked" className="reviewSize">Notez l'application</IonLabel>
+            <div className="rating-buttons">
+              {[1, 2, 3, 4, 5].map((val) => (
+                <IonButton
+                  key={val}
+                  fill={rating === val ? "solid" : "outline"}
+                  size="small"
+                  onClick={() => setRating(val)}
+                  className="rating-button"
                 >
-                    Vos idées
-                </div>
-            )}
+                  {val}
+                </IonButton>
+              ))}
+            </div>
+          </IonItem>
 
-            {/* Modale contenant le sondage */}
-            <IonModal isOpen={isOpen} ref={modalRef} onDidDismiss={() => setIsOpen(false)}> {/* Ferme aussi si on clique hors de la modale */}
-                <IonHeader>
-                    <IonToolbar>
-                        <IonTitle>Sondage</IonTitle>
-                        <IonButtons slot="end">
-                            <IonButton onClick={() => setIsOpen(false)}>
-                                <IonIcon icon={closeOutline} />
-                            </IonButton>
-                        </IonButtons>
-                    </IonToolbar>
-                </IonHeader>
+          <IonItem>
+            <IonLabel position="stacked" className="reviewSize" style={{marginTop: '20px'}}>Une idée d'amélioration ?</IonLabel>
+            <IonTextarea
+  ref={commentRef}
+  rows={4}
+  placeholder="Votre suggestion..."
+  onIonChange={handleTextChange}
+/>
+          </IonItem>
 
-                <IonContent className="ion-padding">
-                    {/* Composant qui affiche le sondage */}
-                    <SurveyComponent model={survey} />
-                </IonContent>
-            </IonModal>
+          <IonButton expand="block" onClick={handleSubmit} className="ion-margin-top">
+            Envoyer
+          </IonButton>
+        </IonContent>
+      </IonModal>
 
-            {/* Optionnel: Composant IonToast pour afficher les messages */}
-            <IonToast
-                isOpen={!!toastMessage}
-                message={toastMessage || ''}
-                onDidDismiss={() => setToastMessage(null)}
-                duration={3000} // Durée en millisecondes
-                position="top" // Ou 'bottom', 'middle'
-            />
+      <IonToast
+        isOpen={!!toastMessage}
+        message={toastMessage || ""}
+        onDidDismiss={() => setToastMessage(null)}
+        duration={3000}
+        position="top"
+      />
 
-            <style>
-            {`
-            .sticky-survey-button {
-                position: fixed;
-                right: 0;
-                top: 50%;
-                /* Correction: right: 12px; était dupliqué */
-                right: 12px;
-                font-size: 14px;
-                transform: translateY(-50%) rotate(-90deg);
-                transform-origin: right center;
-                z-index: 1000;
-                background-color: #272727;
-                color: white;
-                border-radius: 6px 6px 0 0;
-                padding: 3px 10px;
-                font-weight: 400;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-                cursor: pointer; /* Ajout pour indiquer que c'est cliquable */
-            }
-            `}
-            </style>
-        </>
-    );
+      <style>
+        {`
+
+        .reviewSize {
+        font-size: 22px!important;
+        font-weight: 500;
+        }
+        .ion-margin-top {
+        --border-radius: 100px;
+        --background: black;
+        --color: white;
+        }
+        .sticky-survey-button {
+          position: fixed;
+          right: 12px;
+          top: 50%;
+          transform: translateY(-50%) rotate(-90deg);
+          transform-origin: right center;
+          z-index: 1000;
+          background-color: #272727;
+          color: white;
+          border-radius: 6px 6px 0 0;
+          padding: 3px 10px;
+          font-weight: 400;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          cursor: pointer;
+        }
+
+        .rating-buttons {
+          display: flex;
+          gap: 8px;
+          margin-top: 8px;
+        }
+
+        .rating-button {
+          min-width: 20px;
+          min-height: 20px;
+          --border-color: black;
+          --color: black;.
+            --background-activated: grey;
+            --background-focused: grey;
+            --border-radius: 20px;
+        }
+
+        .rating-button.button-solid {
+        --background: black;
+        --color: white;
+        --background-activated: grey;
+        --background-focused: grey;
+        }
+        `}
+      </style>
+    </>
+  );
 };
 
 export default Survey;
