@@ -3,7 +3,11 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 // Define the TimeRangeKey type
 export type TimeRangeKey = 'last_7_days' | 'this_month' | 'last_month' | 'last_3_months' | 'today' | 'all';
-
+interface SurveyData {
+  question1: number;  // La note (correspond à 'rating' dans le modèle)
+  question2?: string; // Le commentaire (correspond à 'comment'), rendu optionnel par '?'
+  // Ajoute ici d'autres propriétés si ton sondage évolue
+}
 export const saveEmotion = async (
   userId: string,
   userPassword: string,
@@ -375,5 +379,40 @@ export const getUserTraits = async (userId: string, timeRange?: TimeRangeKey) =>
   } catch (error) {
     console.error('Error fetching user traits:', error);
     return null; // Retourne null en cas d'erreur
+  }
+};
+
+interface SubmissionPayload {
+  surveyData: SurveyData;
+  userId: string | null;
+}
+export const submitSurvey = async (surveyData: SurveyData, userId: string | null) => {
+  try {
+    const payload: SubmissionPayload = {
+      surveyData: surveyData,
+      userId: userId
+    };
+
+    const response = await fetch(`${API_URL}/submitsurvey`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const errorMessage = responseData?.message || `Erreur HTTP: ${response.status}`;
+      throw new Error(`Échec de la soumission du sondage: ${errorMessage}`);
+    }
+
+    console.log('Sondage soumis avec succès:', responseData);
+    return responseData;
+
+  } catch (error) {
+    console.error('Erreur lors de la soumission du sondage:', error);
+    throw error;
   }
 };

@@ -6,6 +6,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import './Select.css';
 import { useTranslation, initReactI18next } from "react-i18next";
 import i18n from 'i18next';
+import Survey from '../components/Survey';
 
 const Select: React.FC = () => {
   const { setEmotion } = useEmotion();
@@ -105,6 +106,7 @@ const Select: React.FC = () => {
 
   return (
     <IonPage>
+      <Survey/>
       <IonContent
         fullscreen
         className='background-content'

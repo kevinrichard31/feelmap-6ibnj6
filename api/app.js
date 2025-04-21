@@ -19,6 +19,7 @@ const Emotion = require('./models/Emotion'); // Modèle Emotion
 const TraitsHasLang = require('./models/TraitsHasLang'); // Modèle TraitsHasLang
 const { Op, fn, col, literal, Sequelize, QueryTypes } = require('sequelize');
 const PlaceType = require('./models/PlaceType');
+const SurveyAnswer = require('./models/SurveyAnswer');
 
 const OpenAI = require('openai');
 const TraitsType = require('./models/TraitsType');
@@ -93,6 +94,28 @@ app.get('/test', (req, res) => {
   res.send('CORS is working!');
 });
 
+app.post('/submitsurvey', async (req, res) => {
+  try {
+    const { surveyData, userId } = req.body;
+    const { question1, question2 } = surveyData;
+
+    if (typeof question1 !== 'number') {
+      return res.status(400).json({ message: 'La note (question1) est requise et doit être un nombre.' });
+    }
+
+    const newAnswer = await SurveyAnswer.create({
+      user_id: userId, // Utilise l'ID directement venu du client
+      rating: question1,
+      comment: question2 || null,
+    });
+
+    res.status(201).json({ message: 'Réponse au sondage enregistrée avec succès!', answer: newAnswer });
+
+  } catch (error) {
+    console.error("Erreur lors de l'enregistrement de la réponse au sondage:", error);
+    res.status(500).json({ message: "Une erreur interne est survenue lors de l'enregistrement de la réponse." });
+  }
+});
 
 // Route pour récupérer tous les traits d'un utilisateur
 app.get('/users/:userId/traits', async (req, res) => {

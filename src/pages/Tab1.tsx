@@ -10,6 +10,7 @@ import { emotions as emotionData } from '../data/emotions';
 import './Tab1.css';
 import { useGeolocationStore } from '../store/geolocation';
 import { i } from 'vite/dist/node/types.d-aGj9QkWt';
+import Survey from '../components/Survey';
 
 const Tab1: React.FC = () => {
   const [coordinates, setCoordinates] = useState<Position | null>(null);
@@ -174,6 +175,7 @@ const Tab1: React.FC = () => {
 
   return (
     <IonPage>
+      <Survey />
       <IonContent
         fullscreen
         forceOverscroll={false}

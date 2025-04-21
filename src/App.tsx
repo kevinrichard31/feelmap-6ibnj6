@@ -51,6 +51,8 @@ import Utilisation from './pages/Utilisation';
 import Permission from './pages/Permission';
 import OnBoarding from './pages/OnBoarding/OnBoarding';
 import { createAnimation } from '@ionic/react';
+import Survey from './components/Survey';
+import TimeSpent from './components/TimeSpent';
 declare global {
   interface Window {
     ClarityPlugin?: any;
@@ -141,6 +143,15 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    (function (h: any, o: any, t: any, j: any, a?: any, r?: any) {
+      h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+      h._hjSettings = { hjid: 6377552, hjsv: 6 };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script'); r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+
     const setupKeyboardListeners = async () => {
       // Only set up keyboard listeners on mobile platforms
       if (isPlatform('ios') || isPlatform('android')) {
@@ -203,7 +214,9 @@ const App: React.FC = () => {
 
   return (
     <EmotionProvider>
+      
       <IonApp>
+        <TimeSpent />
         <IonReactRouter >
           <div className='container-relative'>
             {/* <div className='testcamera' style={{height: '50px', backgroundColor: 'red', zIndex: 10000, position: 'relative'}}>
@@ -305,14 +318,14 @@ const App: React.FC = () => {
             </IonTabs>
           </div>
 
-            <IonRouterLink routerLink="/select" onClick={() => setActiveTab('select')} className={`tab3-button ${isKeyboardVisible ? 'hidden' : ''}`}>
-              <IonFabButton
-                className={`tab3-button-inside ${isKeyboardVisible ? 'hidden' : ''}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <img src="/feellogo.svg" className="logo-button" alt="Logo" />
-              </IonFabButton>
-            </IonRouterLink>
+          <IonRouterLink routerLink="/select" onClick={() => setActiveTab('select')} className={`tab3-button ${isKeyboardVisible ? 'hidden' : ''}`}>
+            <IonFabButton
+              className={`tab3-button-inside ${isKeyboardVisible ? 'hidden' : ''}`}
+              style={{ textDecoration: 'none' }}
+            >
+              <img src="/feellogo.svg" className="logo-button" alt="Logo" />
+            </IonFabButton>
+          </IonRouterLink>
         </IonReactRouter>
       </IonApp>
     </EmotionProvider>

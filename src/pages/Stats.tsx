@@ -15,6 +15,7 @@ import './Stats.css';
 import CenteredProgressBar from '../components/CenteredProgressBar';
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
 import { useTranslation } from 'react-i18next';
+import Survey from '../components/Survey';
 
 type Score = number;
 
@@ -150,7 +151,7 @@ const Stats: React.FC = () => {
 
   return (
     <IonPage>
-
+    <Survey />
       <IonContent fullscreen forceOverscroll={false}>
         <div className="stats-container">
           <div className='title-container-stats'>

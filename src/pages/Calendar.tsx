@@ -8,6 +8,7 @@ import {
 import { getMonthlyEmotions } from '../utils/api';
 import { emotions as emotionData } from '../data/emotions';
 import './Calendar.css';
+import Survey from '../components/Survey';
 
 // Mois en français
 const monthNames = [
@@ -127,6 +128,7 @@ const Calendar: React.FC = () => {
 
   return (
     <IonPage>
+      <Survey />
       <IonContent fullscreen forceOverscroll={false}>
         <div className="calendar-container">
           {/* Navigation entre les mois */}
