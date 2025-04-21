@@ -1,143 +1,176 @@
 // Survey.tsx
 import React, { useState, useRef } from "react";
 import {
-  IonModal,
-  IonButton,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonIcon,
-  IonButtons,
-  IonItem,
-  IonLabel,
-  IonTextarea,
-  IonToast
+    IonModal,
+    IonButton,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonIcon,
+    IonButtons,
+    IonItem,
+    IonLabel,
+    IonTextarea,
+    IonToast
 } from "@ionic/react";
 import { closeOutline } from "ionicons/icons";
 import { useSurveyStore } from "../store/surveyStore";
 import { submitSurvey } from "../utils/api";
 
 const Survey: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const modalRef = useRef<HTMLIonModalElement>(null);
-  const { hasSubmittedSurvey, setHasSubmittedSurvey } = useSurveyStore();
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const modalRef = useRef<HTMLIonModalElement>(null);
+    const { hasSubmittedSurvey, setHasSubmittedSurvey } = useSurveyStore();
+    const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const [rating, setRating] = useState<number | undefined>(undefined);
-  const [comment, setComment] = useState<string>("");
+    const [rating, setRating] = useState<number | undefined>(undefined);
+    const [comment, setComment] = useState<string>("");
 
-  const userId = localStorage.getItem("userId") || "";
-  const commentRef = useRef<HTMLIonTextareaElement>(null);
-  const MAX_CHARS = 500;
-  const [charCount, setCharCount] = useState(0);
-  
-  const handleTextChange = (event: CustomEvent) => {
-    const text = (event.detail.value || "") as string;
-    let newText = text;
-  
-    if (text.length > MAX_CHARS) {
-      newText = text.slice(0, MAX_CHARS);
-    }
-  
-    setCharCount(newText.length);
-  
-    if (commentRef.current) {
-      commentRef.current.value = newText;
-    }
-  };
-  const handleSubmit = async () => {
-    if (!rating) {
-      alert("Merci de donner une note avant de soumettre.");
-      return;
-    }
-  
-    const commentValue = commentRef.current?.value?.trim() || undefined;
-  
-    const surveyData = {
-      question1: rating,
-      question2: commentValue,
+    const userId = localStorage.getItem("userId") || "";
+    const commentRef = useRef<HTMLIonTextareaElement>(null);
+    const MAX_CHARS = 500;
+    const [charCount, setCharCount] = useState(0);
+
+    const handleTextChange = (event: CustomEvent) => {
+        const text = (event.detail.value || "") as string;
+        let newText = text;
+
+        if (text.length > MAX_CHARS) {
+            newText = text.slice(0, MAX_CHARS);
+        }
+
+        setCharCount(newText.length);
+
+        if (commentRef.current) {
+            commentRef.current.value = newText;
+        }
     };
-  
-    try {
-      const result = await submitSurvey(surveyData, userId);
-      console.log("Réponse du serveur après soumission :", result);
-  
-      setIsOpen(false);
-      setToastMessage("Merci pour votre retour !");
-    } catch (error) {
-      console.error("Erreur lors de l'envoi :", error);
-      const errorMessage =
-        error instanceof Error ? error.message : "Erreur inconnue.";
-      alert(`Erreur : ${errorMessage}`);
-    }
-  };
+    const handleSubmit = async () => {
+        if (!rating) {
+            alert("Merci de donner une note avant de soumettre.");
+            return;
+        }
 
-  return (
-    <>
-      {!hasSubmittedSurvey && (
-        <div className="sticky-survey-button" onClick={() => setIsOpen(true)}>
-          Vos idées
-        </div>
-      )}
+        const commentValue = commentRef.current?.value?.trim() || undefined;
 
-      <IonModal isOpen={isOpen} ref={modalRef} onDidDismiss={() => setIsOpen(false)} style={{paddingTop: '100px'}}>
-        <IonHeader>
-          <IonToolbar>
-            <div style={{paddingLeft: '15px'}}>Vos idées</div>
-            <IonButtons slot="end" >
-              <IonButton onClick={() => setIsOpen(false)}>
-                <IonIcon icon={closeOutline} color="dark" />
-              </IonButton>
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
+        const surveyData = {
+            question1: rating,
+            question2: commentValue,
+        };
 
-        <IonContent className="ion-padding">
-          <IonItem lines="none">
-            <IonLabel position="stacked" className="reviewSize">Notez l'application</IonLabel>
-            <div className="rating-buttons">
-              {[1, 2, 3, 4, 5].map((val) => (
-                <IonButton
-                  key={val}
-                  fill={rating === val ? "solid" : "outline"}
-                  size="small"
-                  onClick={() => setRating(val)}
-                  className="rating-button"
-                >
-                  {val}
-                </IonButton>
-              ))}
-            </div>
-          </IonItem>
+        try {
+            const result = await submitSurvey(surveyData, userId);
+            console.log("Réponse du serveur après soumission :", result);
 
-          <IonItem>
-            <IonLabel position="stacked" className="reviewSize" style={{marginTop: '20px'}}>Une idée d'amélioration ?</IonLabel>
-            <IonTextarea
-  ref={commentRef}
-  rows={4}
-  placeholder="Votre suggestion..."
-  onIonChange={handleTextChange}
-/>
-          </IonItem>
+            setIsOpen(false);
+            setToastMessage("Merci pour votre retour !");
+        } catch (error) {
+            console.error("Erreur lors de l'envoi :", error);
+            const errorMessage =
+                error instanceof Error ? error.message : "Erreur inconnue.";
+            alert(`Erreur : ${errorMessage}`);
+        }
+    };
 
-          <IonButton expand="block" onClick={handleSubmit} className="ion-margin-top">
-            Envoyer
-          </IonButton>
-        </IonContent>
-      </IonModal>
+    return (
+        <>
+            {!hasSubmittedSurvey && (
+                <div className="sticky-survey-button" onClick={() => setIsOpen(true)}>
+                    Vos idées
+                </div>
+            )}
 
-      <IonToast
-        isOpen={!!toastMessage}
-        message={toastMessage || ""}
-        onDidDismiss={() => setToastMessage(null)}
-        duration={3000}
-        position="top"
-      />
+            <IonModal isOpen={isOpen} ref={modalRef} onDidDismiss={() => setIsOpen(false)} style={{ paddingTop: '100px' }}>
+                <IonHeader>
+                    <IonToolbar className="toolbar-survey">
+                        <div style={{ paddingLeft: '15px' }}>Vos idées</div>
+                        <IonButtons slot="end" >
+                            <IonButton onClick={() => setIsOpen(false)}>
+                                <IonIcon icon={closeOutline} className="close-icon" />
+                            </IonButton>
+                        </IonButtons>
+                    </IonToolbar>
+                </IonHeader>
 
-      <style>
-        {`
+                <IonContent className="ion-padding">
+                    <IonItem lines="none" className="item-survey">
+                        <IonLabel position="stacked" className="reviewSize">Notez l'application</IonLabel>
+                        <div className="rating-buttons">
+                            {[1, 2, 3, 4, 5].map((val) => (
+                                <IonButton
+                                    key={val}
+                                    fill={rating === val ? "solid" : "outline"}
+                                    size="small"
+                                    onClick={() => setRating(val)}
+                                    className="rating-button"
+                                >
+                                    {val}
+                                </IonButton>
+                            ))}
+                        </div>
+                    </IonItem>
 
+                    <IonItem className="item-survey">
+                        <IonLabel position="stacked" className="reviewSize" style={{ marginTop: '20px' }}>Une idée d'amélioration ?</IonLabel>
+                        <IonTextarea
+                            ref={commentRef}
+                            rows={4}
+                            placeholder="Votre suggestion..."
+                            onIonChange={handleTextChange}
+                        />
+                    </IonItem>
+
+                    <IonButton expand="block" onClick={handleSubmit} className="ion-margin-top">
+                        Envoyer
+                    </IonButton>
+                </IonContent>
+            </IonModal>
+
+            <IonToast
+                isOpen={!!toastMessage}
+                message={toastMessage || ""}
+                onDidDismiss={() => setToastMessage(null)}
+                duration={3000}
+                position="top"
+            />
+
+            <style>
+                {`
+
+            .close-icon{
+                --color: black;
+            }
+        @media(prefers-color-scheme: dark) {
+
+            .toolbar-survey {
+            --background: #222222;    
+            }
+
+            .close-icon{
+                color: #fff;
+                --color: #fff;
+            }
+
+            .item-survey {
+                    --background: none;
+                    --color: white;
+            }
+
+            .rating-button {
+                --border-color: #ffffff!important;
+                --color: #ffffff!important;
+                --background-focused: grey;
+                --border-radius: 20px;
+            }
+
+            .rating-button.button-solid {
+                --background: white!important;
+                --color: black!important;
+                --background-activated: grey;
+                --background-focused: grey;
+            }
+        }
         .reviewSize {
         font-size: 22px!important;
         font-weight: 500;
@@ -186,9 +219,9 @@ const Survey: React.FC = () => {
         --background-focused: grey;
         }
         `}
-      </style>
-    </>
-  );
+            </style>
+        </>
+    );
 };
 
 export default Survey;
