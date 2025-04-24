@@ -1,4 +1,12 @@
 {
+  "Your ideas": "あなたのアイデア",
+  "Rate the app": "アプリを評価する",
+  "Any suggestions?": "改善の提案はありますか？",
+  "Your suggestion...": "ご提案を入力してください...",
+  "Submit": "送信",
+  "Please provide a rating before submitting.": "送信する前に評価をしてください。",
+  "Thank you for your feedback!": "ご意見ありがとうございます！",
+  "Error: {{error}}": "エラー：{{error}}",
   "welcome": "アプリへようこそ",
   "settings": "設定",
   "logout": "ログアウト",

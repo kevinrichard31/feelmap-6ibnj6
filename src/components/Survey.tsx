@@ -1,4 +1,3 @@
-// Survey.tsx
 import React, { useState, useRef } from "react";
 import {
     IonModal,
@@ -17,13 +16,14 @@ import {
 import { closeOutline } from "ionicons/icons";
 import { useSurveyStore } from "../store/surveyStore";
 import { submitSurvey } from "../utils/api";
+import { useTranslation } from "react-i18next";
 
 const Survey: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const modalRef = useRef<HTMLIonModalElement>(null);
     const { hasSubmittedSurvey, setHasSubmittedSurvey } = useSurveyStore();
     const [toastMessage, setToastMessage] = useState<string | null>(null);
-
+    const { t } = useTranslation();
     const [rating, setRating] = useState<number | undefined>(undefined);
     const [comment, setComment] = useState<string>("");
 
@@ -46,9 +46,10 @@ const Survey: React.FC = () => {
             commentRef.current.value = newText;
         }
     };
+
     const handleSubmit = async () => {
         if (!rating) {
-            alert("Merci de donner une note avant de soumettre.");
+            alert(t("Please provide a rating before submitting."));
             return;
         }
 
@@ -61,15 +62,15 @@ const Survey: React.FC = () => {
 
         try {
             const result = await submitSurvey(surveyData, userId);
-            console.log("Réponse du serveur après soumission :", result);
+            console.log(t("Server response after submit:"), result);
 
             setIsOpen(false);
-            setToastMessage("Merci pour votre retour !");
+            setToastMessage(t("Thank you for your feedback!"));
         } catch (error) {
             console.error("Erreur lors de l'envoi :", error);
             const errorMessage =
                 error instanceof Error ? error.message : "Erreur inconnue.";
-            alert(`Erreur : ${errorMessage}`);
+            alert(t("Error: {{error}}", { error: errorMessage }));
         }
     };
 
@@ -77,15 +78,15 @@ const Survey: React.FC = () => {
         <>
             {!hasSubmittedSurvey && (
                 <div className="sticky-survey-button" onClick={() => setIsOpen(true)}>
-                    Vos idées
+                    {t("Your ideas")}
                 </div>
             )}
 
             <IonModal isOpen={isOpen} ref={modalRef} onDidDismiss={() => setIsOpen(false)} style={{ paddingTop: '100px' }}>
                 <IonHeader>
                     <IonToolbar className="toolbar-survey">
-                        <div style={{ paddingLeft: '15px' }}>Vos idées</div>
-                        <IonButtons slot="end" >
+                        <div style={{ paddingLeft: '15px' }}>{t("Your ideas")}</div>
+                        <IonButtons slot="end">
                             <IonButton onClick={() => setIsOpen(false)}>
                                 <IonIcon icon={closeOutline} className="close-icon" />
                             </IonButton>
@@ -95,7 +96,7 @@ const Survey: React.FC = () => {
 
                 <IonContent className="ion-padding">
                     <IonItem lines="none" className="item-survey">
-                        <IonLabel position="stacked" className="reviewSize">Notez l'application</IonLabel>
+                        <IonLabel position="stacked" className="reviewSize">{t("Rate the app")}</IonLabel>
                         <div className="rating-buttons">
                             {[1, 2, 3, 4, 5].map((val) => (
                                 <IonButton
@@ -112,17 +113,17 @@ const Survey: React.FC = () => {
                     </IonItem>
 
                     <IonItem className="item-survey">
-                        <IonLabel position="stacked" className="reviewSize" style={{ marginTop: '20px' }}>Une idée d'amélioration ?</IonLabel>
+                        <IonLabel position="stacked" className="reviewSize" style={{ marginTop: '20px' }}>{t("Any suggestions?")}</IonLabel>
                         <IonTextarea
                             ref={commentRef}
                             rows={4}
-                            placeholder="Votre suggestion..."
+                            placeholder={t("Your suggestion...")}
                             onIonChange={handleTextChange}
                         />
                     </IonItem>
 
                     <IonButton expand="block" onClick={handleSubmit} className="ion-margin-top">
-                        Envoyer
+                        {t("Submit")}
                     </IonButton>
                 </IonContent>
             </IonModal>
@@ -135,91 +136,91 @@ const Survey: React.FC = () => {
                 position="top"
             />
 
-            <style>
-                {`
+            <style>{`
+                .close-icon {
+                    --color: black;
+                }
 
-            .close-icon{
-                --color: black;
-            }
-        @media(prefers-color-scheme: dark) {
+                @media (prefers-color-scheme: dark) {
+                    .toolbar-survey {
+                        --background: #222222;
+                    }
 
-            .toolbar-survey {
-            --background: #222222;    
-            }
+                    .close-icon {
+                        color: #fff;
+                        --color: #fff;
+                    }
 
-            .close-icon{
-                color: #fff;
-                --color: #fff;
-            }
+                    .item-survey {
+                        --background: none;
+                        --color: white;
+                    }
 
-            .item-survey {
-                    --background: none;
+                    .rating-button {
+                        --border-color: #ffffff!important;
+                        --color: #ffffff!important;
+                        --background-focused: grey;
+                        --border-radius: 20px;
+                    }
+
+                    .rating-button.button-solid {
+                        --background: white!important;
+                        --color: black!important;
+                        --background-activated: grey;
+                        --background-focused: grey;
+                    }
+                }
+
+                .reviewSize {
+                    font-size: 22px!important;
+                    font-weight: 500;
+                }
+
+                .ion-margin-top {
+                    --border-radius: 100px;
+                    --background: black;
                     --color: white;
-            }
+                }
 
-            .rating-button {
-                --border-color: #ffffff!important;
-                --color: #ffffff!important;
-                --background-focused: grey;
-                --border-radius: 20px;
-            }
+                .sticky-survey-button {
+                    position: fixed;
+                    right: 12px;
+                    top: 50%;
+                    transform: translateY(-50%) rotate(-90deg);
+                    transform-origin: right center;
+                    z-index: 1000;
+                    background-color: #272727;
+                    color: white;
+                    border-radius: 6px 6px 0 0;
+                    padding: 3px 10px;
+                    font-weight: 400;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                    cursor: pointer;
+                }
 
-            .rating-button.button-solid {
-                --background: white!important;
-                --color: black!important;
-                --background-activated: grey;
-                --background-focused: grey;
-            }
-        }
-        .reviewSize {
-        font-size: 22px!important;
-        font-weight: 500;
-        }
-        .ion-margin-top {
-        --border-radius: 100px;
-        --background: black;
-        --color: white;
-        }
-        .sticky-survey-button {
-          position: fixed;
-          right: 12px;
-          top: 50%;
-          transform: translateY(-50%) rotate(-90deg);
-          transform-origin: right center;
-          z-index: 1000;
-          background-color: #272727;
-          color: white;
-          border-radius: 6px 6px 0 0;
-          padding: 3px 10px;
-          font-weight: 400;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-          cursor: pointer;
-        }
+                .rating-buttons {
+                    display: flex;
+                    gap: 8px;
+                    margin-top: 8px;
+                }
 
-        .rating-buttons {
-          display: flex;
-          gap: 8px;
-          margin-top: 8px;
-        }
+                .rating-button {
+                    min-width: 20px;
+                    min-height: 20px;
+                    --border-color: black;
+                    --color: black;
+                    --background-activated: grey;
+                    --background-focused: grey;
+                    --border-radius: 20px;
+                }
 
-        .rating-button {
-          min-width: 20px;
-          min-height: 20px;
-          --border-color: black;
-          --color: black;.
-            --background-activated: grey;
-            --background-focused: grey;
-            --border-radius: 20px;
-        }
-
-        .rating-button.button-solid {
-        --background: black;
-        --color: white;
-        --background-activated: grey;
-        --background-focused: grey;
-        }
-        `}
-            </style>
+                .rating-button.button-solid {
+                    --background: black;
+                    --color: white;
+                    --background-activated: grey;
+                    --background-focused: grey;
+                }
+            `}</style>
         </>
     );
 };

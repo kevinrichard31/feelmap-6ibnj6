@@ -1,4 +1,12 @@
 {
+  "Your ideas": "Suas ideias",
+  "Rate the app": "Avalie o aplicativo",
+  "Any suggestions?": "Alguma sugestão?",
+  "Your suggestion...": "Sua sugestão...",
+  "Submit": "Enviar",
+  "Please provide a rating before submitting.": "Por favor, dê uma nota antes de enviar.",
+  "Thank you for your feedback!": "Obrigado pelo seu feedback!",
+  "Error: {{error}}": "Erro: {{error}}",
   "welcome": "Bem-vindo(a) ao aplicativo",
   "settings": "Configurações",
   "logout": "Sair",
