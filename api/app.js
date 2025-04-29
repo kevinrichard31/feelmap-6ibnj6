@@ -20,6 +20,7 @@ const TraitsHasLang = require('./models/TraitsHasLang'); // Modèle TraitsHasLan
 const { Op, fn, col, literal, Sequelize, QueryTypes } = require('sequelize');
 const PlaceType = require('./models/PlaceType');
 const SurveyAnswer = require('./models/SurveyAnswer');
+const Goals = require('./models/Goals');
 
 const OpenAI = require('openai');
 const TraitsType = require('./models/TraitsType');

@@ -121,7 +121,7 @@ const Describe: React.FC = () => {
             <div className='container-title'>
               <img src={image} className="emoji-size" alt="Emotion" />
               <div className="describe-title">
-                {t('youchoosed')} {t(emotion)} <br />
+
                 <span className='describe-title-bold'>{t('describewhathappen')} :</span>
               </div>
             </div>

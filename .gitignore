@@ -6,7 +6,7 @@
 .pnp.js
 /store connect
 /api/node_modules
-
+/api/.env
 # testing
 /coverage
 
