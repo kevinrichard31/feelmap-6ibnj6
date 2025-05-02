@@ -21,7 +21,7 @@ const { Op, fn, col, literal, Sequelize, QueryTypes } = require('sequelize');
 const PlaceType = require('./models/PlaceType');
 const SurveyAnswer = require('./models/SurveyAnswer');
 const Goals = require('./models/Goals');
-
+const generateLifeGoals = require('./utils/generateLifeGoals');
 const OpenAI = require('openai');
 const TraitsType = require('./models/TraitsType');
 const callAiMatrix = require('./utils/callAiMatrix');
@@ -775,6 +775,25 @@ app.post('/emotions', async (req, res) => {
         } catch (adviceError) {
           console.error('Error getting or updating advice:', adviceError);
         }
+
+        try {
+          const goals = await generateLifeGoals(description, client, userLang);
+          console.log('goals******')
+          console.log(goals)
+          const goalsToCreate = goals.goals.map(goal => ({
+            userId,
+            emotionId: emotion.id,
+            title: goal.title,
+            description: goal.description || null,
+            targetDate: goal.targetDate ? new Date(goal.targetDate) : null,
+            status: false,
+            accepted: false
+          }));
+      
+          await Goals.bulkCreate(goalsToCreate);
+        } catch (goalError) {
+          console.error('Error generating or saving goals:', goalError);
+        }
       } catch (processError) {
         console.error('Post-response processing error:', processError);
       }
@@ -915,6 +934,43 @@ app.get('/testemo', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+
+app.post('/getgoals', async (req, res) => {
+  const { userId, description } = req.body;
+
+  if (!description || !userId) {
+    return res.status(400).json({ error: 'Missing userId or description in request body' });
+  }
+
+  try {
+    // Vérifier si l'utilisateur existe et récupérer sa langue
+    const user = await User.findByPk(userId, {
+      include: { model: Lang }
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: 'User not found' });
+    }
+
+    if (!user.Lang || !user.Lang.code) {
+      return res.status(400).json({ error: 'User language not found' });
+    }
+
+    const userLang = user.Lang.code;
+
+    // Générer les objectifs avec la bonne langue
+    const goals = await generateLifeGoals(description, client, userLang);
+    res.json(goals);
+
+  } catch (err) {
+    console.error('Error in /getgoals:', err);
+    res.status(500).json({ error: 'Failed to generate goals' });
+  }
+});
+
+
 
 // Route pour récupérer toutes les émotions d'une journée pour un utilisateur
 app.get('/emotions/day', async (req, res) => {

@@ -53,6 +53,8 @@ import OnBoarding from './pages/OnBoarding/OnBoarding';
 import { createAnimation } from '@ionic/react';
 import Survey from './components/Survey';
 import TimeSpent from './components/TimeSpent';
+import Goals from './pages/Goals';
+import GoalsChoice from './pages/GoalsChoice';
 declare global {
   interface Window {
     ClarityPlugin?: any;
@@ -256,6 +258,13 @@ const App: React.FC = () => {
 
                 <Route path="/select">
                   <Select />
+                </Route>
+                
+                <Route path="/goalschoice">
+                  <GoalsChoice />
+                </Route>
+                <Route path="/goals">
+                  <Goals />
                 </Route>
                 <Route path="/describe">
                   <Describe />

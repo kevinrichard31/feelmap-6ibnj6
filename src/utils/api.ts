@@ -416,3 +416,30 @@ export const submitSurvey = async (surveyData: SurveyData, userId: string | null
     throw error;
   }
 };
+
+
+// utils/getGoals.js
+export const getGoals = async (description: string, userId: string | null) => {
+  try {
+    const response = await fetch(`${API_URL}/getgoals`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ description, userId }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      const errorMsg = data?.message || `HTTP error: ${response.status}`;
+      throw new Error(`Échec de la récupération des objectifs : ${errorMsg}`);
+    }
+
+    console.log('Objectifs récupérés avec succès :', data);
+    return data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des objectifs :', error);
+    throw error;
+  }
+};

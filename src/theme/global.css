@@ -68,7 +68,13 @@ button.item-native {
   --ripple-color: black; /* Couleur de l'effet ripple */
 }
 
+body {
+  --ion-toolbar-background: #fff;
+}
 
 
 @media(prefers-color-scheme: dark){
+  body {
+    --ion-toolbar-background: #222222;
+  }
 }

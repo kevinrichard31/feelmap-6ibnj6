@@ -1,0 +1,13 @@
+.content-container {
+    height: 100%;
+}
+
+.header-image {
+    background-image: url("/images/head-sport.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top;
+    width: 100vw;
+    aspect-ratio: 1 / 1;
+    margin: 0;
+}
