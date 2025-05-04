@@ -93,7 +93,7 @@ const Survey: React.FC = () => {
             )}
 
             <IonModal isOpen={isOpen} ref={modalRef} onDidDismiss={() => setIsOpen(false)} style={{ paddingTop: '100px' }}>
-                <IonHeader>
+                <IonHeader className="toolbar-survey">
                     <IonToolbar className="toolbar-survey">
                         <div style={{ paddingLeft: '15px' }}>{t("Your ideas")}</div>
                         <IonButtons slot="end">
@@ -122,8 +122,8 @@ const Survey: React.FC = () => {
                         </div>
                     </IonItem>
 
-                    <IonItem className="item-survey">
-                        <IonLabel position="stacked" className="reviewSize" style={{ marginTop: '20px' }}>{t("Any suggestions?")}</IonLabel>
+                    <IonItem className="item-survey" style={{ marginTop: '20px' }}>
+                        <IonLabel position="stacked" className="reviewSize" >{t("Any suggestions?")}</IonLabel>
                         <IonTextarea
                             ref={commentRef}
                             rows={4}
@@ -158,6 +158,12 @@ const Survey: React.FC = () => {
                 }
 
                 @media (prefers-color-scheme: dark) {
+                    .ion-padding ion-item {
+                        --background: none !important;
+                    }
+                    .toolbar-container {
+                    background: #222222;
+                    }
                     .toolbar-survey {
                         --background: #222222;
                     }
@@ -170,8 +176,6 @@ const Survey: React.FC = () => {
                     .item-survey {
                         --background: none;
                         --color: white;
-                        margin-bottom: 45px;
-                        margin-top: 45px;
                     }
 
                     .rating-button {
@@ -179,6 +183,7 @@ const Survey: React.FC = () => {
                         --color: #ffffff!important;
                         --background-focused: grey;
                         --border-radius: 20px;
+                        color: white!important;
                     }
 
                     .rating-button.button-solid {
@@ -187,6 +192,9 @@ const Survey: React.FC = () => {
                         --background-activated: grey;
                         --background-focused: grey;
                     }
+
+                    .reviewSize {
+                    color: white!important;}
                 }
 
                 .reviewSize {
