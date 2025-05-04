@@ -30,6 +30,8 @@ const setupAssociations = require('./models/associations');
 const getAdviceFromAI = require('./utils/getAdviceFromAi');
 setupAssociations()
 require('dotenv').config();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const client = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // La clé API d'OpenAI est récupérée depuis les variables d'environnement.
@@ -95,28 +97,34 @@ app.get('/test', (req, res) => {
   res.send('CORS is working!');
 });
 
-app.post('/submitsurvey', async (req, res) => {
+app.post('/submitsurvey', upload.array('images'), async (req, res) => {
   try {
-    const { surveyData, userId } = req.body;
-    const { question1, question2 } = surveyData;
+    const { userId, question1, question2 } = req.body;
+    const files = req.files;
 
-    if (typeof question1 !== 'number') {
-      return res.status(400).json({ message: 'La note (question1) est requise et doit être un nombre.' });
+    if (!question1) {
+      return res.status(400).json({ message: 'La note (question1) est requise.' });
     }
 
+    // Récupère les chemins
+    const imagePaths = files.map(file => file.path.replace(/\\/g, '/')); // remplace les \\ par /
+
+
     const newAnswer = await SurveyAnswer.create({
-      user_id: userId, // Utilise l'ID directement venu du client
-      rating: question1,
+      user_id: userId,
+      rating: parseInt(question1),
       comment: question2 || null,
+      image_paths: imagePaths, // ici
     });
 
-    res.status(201).json({ message: 'Réponse au sondage enregistrée avec succès!', answer: newAnswer });
+    res.status(201).json({ message: 'Réponse enregistrée avec succès.', answer: newAnswer });
 
   } catch (error) {
-    console.error("Erreur lors de l'enregistrement de la réponse au sondage:", error);
-    res.status(500).json({ message: "Une erreur interne est survenue lors de l'enregistrement de la réponse." });
+    console.error("Erreur lors de l'enregistrement de la réponse:", error);
+    res.status(500).json({ message: "Erreur interne lors de l'enregistrement." });
   }
 });
+
 
 // Route pour récupérer tous les traits d'un utilisateur
 app.get('/users/:userId/traits', async (req, res) => {

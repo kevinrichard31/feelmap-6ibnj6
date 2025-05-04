@@ -29,6 +29,11 @@ const SurveyAnswer = sequelize.define('SurveyAnswer', {
     allowNull: false,
     defaultValue: DataTypes.NOW,
   },
+  image_paths: {
+    type: DataTypes.ARRAY(DataTypes.STRING), // si tu es en PostgreSQL
+    allowNull: true,
+  },
+  
 }, {
   tableName: 'survey_answers',
   timestamps: false,

@@ -386,36 +386,38 @@ interface SubmissionPayload {
   surveyData: SurveyData;
   userId: string | null;
 }
-export const submitSurvey = async (surveyData: SurveyData, userId: string | null) => {
+export const submitSurvey = async (surveyData: SurveyData, userId: string | null, images: File[]) => {
   try {
-    const payload: SubmissionPayload = {
-      surveyData: surveyData,
-      userId: userId
-    };
+      const formData = new FormData();
+      formData.append('userId', userId || '');
+      formData.append('question1', surveyData.question1.toString());
+      if (surveyData.question2) formData.append('question2', surveyData.question2);
 
-    const response = await fetch(`${API_URL}/submitsurvey`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+      images.forEach((file, index) => {
+          formData.append('images', file);
+      });
 
-    const responseData = await response.json();
+      const response = await fetch(`${API_URL}/submitsurvey`, {
+          method: 'POST',
+          body: formData,
+      });
 
-    if (!response.ok) {
-      const errorMessage = responseData?.message || `Erreur HTTP: ${response.status}`;
-      throw new Error(`Échec de la soumission du sondage: ${errorMessage}`);
-    }
+      const responseData = await response.json();
 
-    console.log('Sondage soumis avec succès:', responseData);
-    return responseData;
+      if (!response.ok) {
+          const errorMessage = responseData?.message || `Erreur HTTP: ${response.status}`;
+          throw new Error(`Échec de la soumission du sondage: ${errorMessage}`);
+      }
+
+      console.log('Sondage soumis avec succès:', responseData);
+      return responseData;
 
   } catch (error) {
-    console.error('Erreur lors de la soumission du sondage:', error);
-    throw error;
+      console.error('Erreur lors de la soumission du sondage:', error);
+      throw error;
   }
 };
+
 
 
 // utils/getGoals.js

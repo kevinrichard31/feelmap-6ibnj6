@@ -32,6 +32,16 @@ const Survey: React.FC = () => {
     const MAX_CHARS = 500;
     const [charCount, setCharCount] = useState(0);
 
+    const [images, setImages] = useState<File[]>([]);
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files) {
+            setImages(Array.from(files));
+        }
+    };
+
+
     const handleTextChange = (event: CustomEvent) => {
         const text = (event.detail.value || "") as string;
         let newText = text;
@@ -61,7 +71,7 @@ const Survey: React.FC = () => {
         };
 
         try {
-            const result = await submitSurvey(surveyData, userId);
+            const result = await submitSurvey(surveyData, userId, images);
             console.log(t("Server response after submit:"), result);
 
             setIsOpen(false);
@@ -122,6 +132,12 @@ const Survey: React.FC = () => {
                         />
                     </IonItem>
 
+                    <IonItem className="item-survey">
+                        <IonLabel position="stacked" style={{ marginTop: '20px' }}>{t("Provide images (if any)")}</IonLabel>
+                        <input type="file" accept="image/*" multiple onChange={handleFileChange} />
+                    </IonItem>
+
+
                     <IonButton expand="block" onClick={handleSubmit} className="ion-margin-top">
                         {t("Submit")}
                     </IonButton>
@@ -154,6 +170,8 @@ const Survey: React.FC = () => {
                     .item-survey {
                         --background: none;
                         --color: white;
+                        margin-bottom: 45px;
+                        margin-top: 45px;
                     }
 
                     .rating-button {
