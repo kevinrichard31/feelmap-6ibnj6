@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>fr</string>
+	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>Feelmap</string>
 	<key>CFBundleExecutable</key>
@@ -46,9 +46,9 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Nous utilisons votre localisation pour afficher votre position actuelle sur la carte et pour géolocaliser vos émotions afin de vous offrir des recommandations personnalisées basées sur votre emplacement et votre état émotionnel.</string>
+	<string>We use your location to display your current position on the map and to geolocate your emotions in order to offer you personalized recommendations based on your location and emotional state.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Cette application nécessite votre localisation pour afficher votre position sur la carte et pour géolocaliser vos émotions, afin de personnaliser les recommandations.</string>
+	<string>This application requires your location to display your position on the map and to geolocate your emotions, in order to personalize recommendations.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>
