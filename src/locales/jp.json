@@ -1,4 +1,12 @@
 {
+  "Activation...": "有効化中...",
+  "Suivant": "次へ",
+  "Carte": "地図",
+  "Géolocalisation activée avec succès !": "位置情報が正常に有効になりました！",
+  "Erreur lors de l'activation de la géolocalisation :": "位置情報の有効化中にエラーが発生しました：",
+  "L'accès à la géolocalisation a été refusé. Activez-la dans les paramètres de l'application si vous souhaitez l'activer.": "位置情報へのアクセスが拒否されました。利用したい場合はアプリの設定で有効にしてください。",
+  "La géolocalisation n'est pas disponible sur cet appareil.": "このデバイスでは位置情報が利用できません。",
+  "Une erreur s'est produite lors de l'activation de la géolocalisation.": "位置情報の有効化中にエラーが発生しました。",
   "Provide images (if any)": "画像を提供してください（ある場合)",
   "Your ideas": "あなたのアイデア",
   "Rate the app": "アプリを評価する",

@@ -19,6 +19,7 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
   const [loadingGeolocation, setLoadingGeolocation] = useState(false);
   const setGeolocation = useGeolocationStore((state) => state.setGeolocation);
   const { t } = useTranslation();
+
   useEffect(() => {
     setBackgroundClass('background2-content');
   }, [setBackgroundClass]);
@@ -26,28 +27,28 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
   const requestGeolocation = async () => {
     setLoadingGeolocation(true);
     try {
-      const position = await Geolocation.getCurrentPosition({enableHighAccuracy: true});
+      const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
       console.log("position");
       console.log(position.coords.latitude);
       console.log(position.coords.longitude);
       setGeolocation(position.coords.latitude, position.coords.longitude);
       setGeolocationEnabled(true);
       setLoadingGeolocation(false);
-      console.log("Géolocalisation activée avec succès !");
-      onNext(); // Passe à l'étape suivante après l'activation réussie
+      console.log(t("Géolocalisation activée avec succès !"));
+      onNext();
     } catch (error: any) {
-      console.error("Erreur lors de l'activation de la géolocalisation :", error);
+      console.error(t("Erreur lors de l'activation de la géolocalisation :"), error);
       setGeolocationEnabled(false);
       setLoadingGeolocation(false);
 
       if (error.message.includes('denied')) {
-        alert("L'accès à la géolocalisation a été refusé. Activez-là dans les paramètres de l'application si vous souhaitez l'activer.");
+        alert(t("L'accès à la géolocalisation a été refusé. Activez-la dans les paramètres de l'application si vous souhaitez l'activer."));
       } else if (error.message.includes('unavailable')) {
-        alert("La géolocalisation n'est pas disponible sur cet appareil.");
+        alert(t("La géolocalisation n'est pas disponible sur cet appareil."));
       } else {
-        alert("Une erreur s'est produite lors de l'activation de la géolocalisation.");
+        alert(t("Une erreur s'est produite lors de l'activation de la géolocalisation."));
       }
-       // Go to next screen even if denied or unavailable
+
       onNext();
     }
   };
@@ -62,27 +63,24 @@ const OnBoarding4: React.FC<Props> = ({ onNext, onBack, currentStep }) => {
       >
         <img src="./images/onboarding/iconright2.svg" alt="" className={styles['iconright']} />
         <div className={styles['title']} style={{ marginBottom: '15px' }}>
-        {t('Où te sens-tu')}
-          <br></br>
+          {t('Où te sens-tu')}
+          <br />
           <span className={styles['title-bold']}>{t('vraiment bien ?')}</span>
         </div>
         <p className={styles['onboarding-p']}>{t('onboarding4text1')}</p>
         <div className={styles['ob3traits-container']}>
-          <img src="./images/onboarding/map.png" alt="" className={styles['map-image']} />
+          <img src="./images/onboarding/map.png" alt={t("Carte")} className={styles['map-image']} />
         </div>
-        {/* Bouton "Suivant" */}
         <div className={styles['next-container']}>
-          {/* <button onClick={onBack} className={styles['prev']}>Retour</button> */}
-           <button
-              onClick={requestGeolocation}
-              className={styles['next-second-color']}
-              disabled={loadingGeolocation}
-              style={{marginTop: '20px'}}
-            >
-              {loadingGeolocation ? 'Activation...' : 'Suivant'}
-            </button>
+          <button
+            onClick={requestGeolocation}
+            className={styles['next-second-color']}
+            disabled={loadingGeolocation}
+            style={{ marginTop: '20px' }}
+          >
+            {loadingGeolocation ? t('Activation...') : t('Suivant')}
+          </button>
         </div>
-
       </motion.div>
 
       <div className={styles['step-container']}>

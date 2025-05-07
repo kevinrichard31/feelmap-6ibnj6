@@ -1,4 +1,12 @@
 {
+  "Activation...": "Activating...",
+  "Suivant": "Next",
+  "Carte": "Map",
+  "Géolocalisation activée avec succès !": "Geolocation successfully enabled!",
+  "Erreur lors de l'activation de la géolocalisation :": "Error enabling geolocation:",
+  "L'accès à la géolocalisation a été refusé. Activez-la dans les paramètres de l'application si vous souhaitez l'activer.": "Access to geolocation was denied. Enable it in the app settings if you want to use it.",
+  "La géolocalisation n'est pas disponible sur cet appareil.": "Geolocation is not available on this device.",
+  "Une erreur s'est produite lors de l'activation de la géolocalisation.": "An error occurred while enabling geolocation.",
   "Provide images (if any)": "Provide images (if any)",
   "welcome": "Welcome to the application",
   "settings": "Settings",

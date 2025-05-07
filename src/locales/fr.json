@@ -1,13 +1,21 @@
 {
+  "Activation...": "Activation...",
+  "Suivant": "Suivant",
+  "Carte": "Carte",
+  "Géolocalisation activée avec succès !": "Géolocalisation activée avec succès !",
+  "Erreur lors de l'activation de la géolocalisation :": "Erreur lors de l'activation de la géolocalisation :",
+  "L'accès à la géolocalisation a été refusé. Activez-la dans les paramètres de l'application si vous souhaitez l'activer.": "L'accès à la géolocalisation a été refusé. Activez-la dans les paramètres de l'application si vous souhaitez l'activer.",
+  "La géolocalisation n'est pas disponible sur cet appareil.": "La géolocalisation n'est pas disponible sur cet appareil.",
+  "Une erreur s'est produite lors de l'activation de la géolocalisation.": "Une erreur s'est produite lors de l'activation de la géolocalisation.",
   "Provide images (if any)": "Fournir des images (si disponibles)",
-"Your ideas": "Vos idées",
+  "Your ideas": "Vos idées",
   "Rate the app": "Notez l'application",
   "Any suggestions?": "Une idée d'amélioration ?",
   "Your suggestion...": "Votre suggestion...",
   "Submit": "Envoyer",
   "Please provide a rating before submitting.": "Merci de donner une note avant de soumettre.",
   "Thank you for your feedback!": "Merci pour votre retour !",
-  "Error: {{error}}" : "Erreur : {{error}}",
+  "Error: {{error}}": "Erreur : {{error}}",
   "welcome": "Bienvenue dans l'application",
   "settings": "Paramètres",
   "logout": "Se déconnecter",
@@ -254,26 +262,23 @@
     "disclaimerTitle": "Avertissement Important",
     "disclaimerContent": "Les contenus affichés sont à but ludique uniquement. Ils ne constituent pas un avis médical ou professionnel. Consultez un professionnel pour toute préoccupation liée à votre santé."
   },
-    "permissionPage": {
-      "backButtonAlt": "Retour",
-      "title": "Permissions",
-      "intro": "Afin de vous offrir la meilleure expérience possible, Feelmap requiert certaines permissions sur votre appareil. Vous pouvez consulter et modifier ces permissions à tout moment.",
-  
-      "locationTitle": "1. Localisation",
-      "locationWhyTitle": "Pourquoi ?",
-      "locationWhyContent": "Feelmap utilise votre localisation pour cartographier vos émotions en fonction des endroits où vous les avez exprimées.",
-      "locationHowTitle": "Comment ?",
-      "locationHowContent": "Votre localisation est anonymisée et utilisée uniquement pour afficher vos émotions sur la carte. Ces informations ne sont pas partagées avec des tiers.",
-      "locationManage": "Gérer cette permission : Vous pouvez activer ou désactiver cette permission via les paramètres de votre navigateur.",
-  
-      "storageTitle": "2. Stockage local",
-      "storageWhyTitle": "Pourquoi ?",
-      "storageWhyContent": "Nous stockons vos données d'émotion et de localisation dans le stockage local pour vous permettre de consulter votre historique émotionnel dans un calendrier.",
-      "storageHowTitle": "Comment ?",
-      "storageHowContent": "Ces données sont stockées localement et transmises à nos serveurs pour vous permettre de vous authentifier ; ces données sont obligatoires.",
-  
-      "noteTitle": "Note",
-      "noteContent": "La désactivation de certaines permissions peut limiter les fonctionnalités de l'application, telles que la possibilité de visualiser vos émotions sur la carte ou de consulter votre historique."
-    },
-    "analysing": "Analyse en cours"
+  "permissionPage": {
+    "backButtonAlt": "Retour",
+    "title": "Permissions",
+    "intro": "Afin de vous offrir la meilleure expérience possible, Feelmap requiert certaines permissions sur votre appareil. Vous pouvez consulter et modifier ces permissions à tout moment.",
+    "locationTitle": "1. Localisation",
+    "locationWhyTitle": "Pourquoi ?",
+    "locationWhyContent": "Feelmap utilise votre localisation pour cartographier vos émotions en fonction des endroits où vous les avez exprimées.",
+    "locationHowTitle": "Comment ?",
+    "locationHowContent": "Votre localisation est anonymisée et utilisée uniquement pour afficher vos émotions sur la carte. Ces informations ne sont pas partagées avec des tiers.",
+    "locationManage": "Gérer cette permission : Vous pouvez activer ou désactiver cette permission via les paramètres de votre navigateur.",
+    "storageTitle": "2. Stockage local",
+    "storageWhyTitle": "Pourquoi ?",
+    "storageWhyContent": "Nous stockons vos données d'émotion et de localisation dans le stockage local pour vous permettre de consulter votre historique émotionnel dans un calendrier.",
+    "storageHowTitle": "Comment ?",
+    "storageHowContent": "Ces données sont stockées localement et transmises à nos serveurs pour vous permettre de vous authentifier ; ces données sont obligatoires.",
+    "noteTitle": "Note",
+    "noteContent": "La désactivation de certaines permissions peut limiter les fonctionnalités de l'application, telles que la possibilité de visualiser vos émotions sur la carte ou de consulter votre historique."
+  },
+  "analysing": "Analyse en cours"
 }

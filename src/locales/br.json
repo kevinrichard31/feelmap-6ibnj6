@@ -1,4 +1,12 @@
 {
+  "Activation...": "Ativando...",
+  "Suivant": "Próximo",
+  "Carte": "Mapa",
+  "Géolocalisation activée avec succès !": "Geolocalização ativada com sucesso!",
+  "Erreur lors de l'activation de la géolocalisation :": "Erro ao ativar a geolocalização:",
+  "L'accès à la géolocalisation a été refusé. Activez-la dans les paramètres de l'application si vous souhaitez l'activer.": "O acesso à geolocalização foi negado. Ative-o nas configurações do aplicativo se desejar usá-lo.",
+  "La géolocalisation n'est pas disponible sur cet appareil.": "A geolocalização não está disponível neste dispositivo.",
+  "Une erreur s'est produite lors de l'activation de la géolocalisation.": "Ocorreu um erro ao ativar a geolocalização.",
   "Provide images (if any)": "Forneça imagens (se houver)",
   "Your ideas": "Suas ideias",
   "Rate the app": "Avalie o aplicativo",
