@@ -37,15 +37,26 @@ const User = sequelize.define('User', {
   created_at: {
     type: DataTypes.DATE,
     allowNull: true,
-    defaultValue: DataTypes.NOW, // Définit automatiquement la date actuelle
+    defaultValue: DataTypes.NOW,
   },
   ip_address: {
     type: DataTypes.STRING,
-    allowNull: true, // Permet de laisser le champ vide si l'IP n'est pas disponible
+    allowNull: true,
+  },
+  fcm_token: { // Champ pour le token FCM
+    type: DataTypes.STRING,
+    allowNull: true,
+    comment: 'Firebase Cloud Messaging token'
+  },
+  want_notification: { // Champ booléen pour l'activation des notifications
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
+    comment: "L'utilisateur souhaite recevoir des notifications"
   },
 }, {
   tableName: 'users',
-  timestamps: false, // Désactive les colonnes par défaut `createdAt` et `updatedAt`
+  timestamps: false,
 });
 
 User.belongsTo(Lang, { foreignKey: 'lang_id' });

@@ -16,7 +16,7 @@ import {
   isPlatform
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, location, calendarNumber, settingsOutline, settings, people, personAdd, person, barChart, pieChart, analytics } from 'ionicons/icons';
+import { ellipse, square, location, calendarNumber, settingsOutline, settings, people, personAdd, person, barChart, pieChart, analytics, addCircle, calendarOutline, locationOutline } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Calendar from './pages/Calendar';
 import Params from './pages/Params';
@@ -35,7 +35,7 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
-// import '@ionic/react/css/palettes/dark.system.css';
+// import '@ionic/react/css/palettes/dark.always.css';
 import Select from './pages/Select';
 import Describe from './pages/Describe';
 import { checkUserExists, createUser } from './utils/api';
@@ -214,9 +214,11 @@ const App: React.FC = () => {
     color: activeTab === tabName ? 'black' : '#A2A2A2',
   });
 
+
+
   return (
     <EmotionProvider>
-      
+
       <IonApp>
         <TimeSpent />
         <IonReactRouter >
@@ -259,7 +261,7 @@ const App: React.FC = () => {
                 <Route path="/select">
                   <Select />
                 </Route>
-                
+
                 <Route path="/goalschoice">
                   <GoalsChoice />
                 </Route>
@@ -290,7 +292,7 @@ const App: React.FC = () => {
                   onClick={() => setActiveTab('tab1')}
                   className="tab-button" // Add a class for styling
                 >
-                  <IonIcon aria-hidden="true" icon={location} />
+                  <IonIcon aria-hidden="true" icon={locationOutline} />
                 </IonTabButton>
                 <IonTabButton
                   tab="calendar"
@@ -299,7 +301,28 @@ const App: React.FC = () => {
                   onClick={() => setActiveTab('calendar')}
                   className="tab-button" // Add a class for styling
                 >
-                  <IonIcon aria-hidden="true" icon={calendarNumber} />
+                  <IonIcon aria-hidden="true" icon={calendarOutline} />
+                </IonTabButton>
+                <IonTabButton
+                  tab="select"
+                  href="/select"
+                  style={tabButtonStyle('select')}
+                  onClick={() => setActiveTab('select')}
+                  className="tab-button" // Add a class for styling
+                >
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={addCircle}
+                    style={{
+                      fontSize: '36px',
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50px',
+                      padding: '1px', // optionnel : pour que l'icône ne touche pas les bords  // pour que l'icône reste visible sur fond noir
+                    }}
+                    className="tab-button"
+                  />
+
                 </IonTabButton>
                 <IonTabButton
                   tab="stats"
@@ -317,24 +340,25 @@ const App: React.FC = () => {
                   onClick={() => setActiveTab('params')}
                   className="tab-button" // Add a class for styling
                 >
-                  <IonIcon aria-hidden="true" icon={settings} />
+                  <IonIcon aria-hidden="true" icon={settingsOutline} />
+                </IonTabButton>
+
+                {/* <IonTabButton disabled>
                 </IonTabButton>
                 <IonTabButton disabled>
-                </IonTabButton>
-                <IonTabButton disabled>
-                </IonTabButton>
+                </IonTabButton> */}
               </IonTabBar>
             </IonTabs>
           </div>
 
-          <IonRouterLink routerLink="/select" onClick={() => setActiveTab('select')} className={`tab3-button ${isKeyboardVisible ? 'hidden' : ''}`}>
+          {/* <IonRouterLink routerLink="/select" onClick={() => setActiveTab('select')} className={`tab3-button ${isKeyboardVisible ? 'hidden' : ''}`}>
             <IonFabButton
               className={`tab3-button-inside ${isKeyboardVisible ? 'hidden' : ''}`}
               style={{ textDecoration: 'none' }}
             >
               <img src="/feellogo.svg" className="logo-button" alt="Logo" />
             </IonFabButton>
-          </IonRouterLink>
+          </IonRouterLink> */}
         </IonReactRouter>
       </IonApp>
     </EmotionProvider>

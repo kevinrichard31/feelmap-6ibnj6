@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+
 buildscript {
     ext {
         agp_version = '8.7.2'
@@ -15,7 +16,9 @@ buildscript {
         classpath "com.android.tools.build:gradle:$agp_version1"
         classpath 'com.google.gms:google-services:4.4.2'
     }
+
 }
+
 
 apply from: "variables.gradle"
 

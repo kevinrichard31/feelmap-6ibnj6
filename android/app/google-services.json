@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160209227048",
+    "project_id": "feelamp-1a8ce",
+    "storage_bucket": "feelamp-1a8ce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160209227048:android:2110a0f1dd8b909da0141d",
+        "android_client_info": {
+          "package_name": "com.feelmap.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu1rfWm6SWkBciMrNyW9JpOIeh_q7cAyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

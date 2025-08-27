@@ -1,63 +1,82 @@
-import { IonContent, IonPage, useIonRouter } from '@ionic/react';
+import { IonContent, IonPage, useIonRouter, useIonViewDidEnter } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { emotions } from '../data/emotions';
 import { useEmotion } from '../contexts/EmotionContext';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import './Select.css';
-import { useTranslation, initReactI18next } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import i18n from 'i18next';
 import Survey from '../components/Survey';
+import { PermissionStatus, PushNotifications, PushNotificationSchema, Token } from '@capacitor/push-notifications';
+
 
 const Select: React.FC = () => {
   const { setEmotion } = useEmotion();
-  const routerLink = useIonRouter(); // Utilisation de useIonRouter pour la navigation
-  const [isPointerDown, setIsPointerDown] = useState(false);  // Pour savoir si l'appui est maintenu
-  const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);  // Nouveau state pour l'élément sélectionné
+  const routerLink = useIonRouter();
+  const [isPointerDown, setIsPointerDown] = useState(false);
+  const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const audio = new Audio('/pop.mp3');
   const { t } = useTranslation();
 
+
+  useIonViewDidEnter(() => {
+
+    //Request Permissions
+    PushNotifications.requestPermissions().then((permission: PermissionStatus) => {
+      if (permission.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register().then();
+      } else {
+        // No permission for push granted
+      }
+    });
+
+    //Registration in firebase
+    PushNotifications.addListener(
+      'registration',
+      async (token: Token) => {
+        //TODO:THE TOKEN IS RECEIVED AFTER A SUCCESSFUL AUTHENTICATION IS ACHIEVED
+        console.log('My token: ' + JSON.stringify(token));
+      }
+    );
+
+    //Subscribed notifications
+    PushNotifications.addListener(
+      'pushNotificationReceived',
+      async (notification: PushNotificationSchema) => {
+        //TODO: THIS IS WHERE THE NOTIFICATION IS CAPTURED (BACKGROUND)
+        console.log('Push received: ' + JSON.stringify(notification));
+      }
+    );
+  });
+
   const handleClick = (emotion: string, image: string, background: string) => {
-    console.log('coucou');
-    // On envoie uniquement l'émotion, l'image et le background
-    setEmotion(emotion, image, background, 0, 0);  // Latitude et longitude par défaut à 0
-    routerLink.push('/describe', 'forward');  // Navigation vers la page Describe
+    setEmotion(emotion, image, background, 0, 0);
+    routerLink.push('/describe', 'forward');
   };
 
   const handlePointerStart = (event: React.TouchEvent) => {
-    setIsPointerDown(true); // L'appui est maintenu
-    // Récupérer directement l'élément cible du touché
-    const targetElement = event.target as HTMLElement; // Assurez-vous que l'élément est un HTMLElement
-
-    // Vérifier si l'élément ou un de ses parents possède la classe 'container-emoji-single'
+    setIsPointerDown(true);
+    const targetElement = event.target as HTMLElement;
     const emojiElement = targetElement.classList.contains('container-emoji-single')
       ? targetElement
       : targetElement.closest('.container-emoji-single') as HTMLElement;
-
-    // Si un élément avec la classe 'container-emoji-single' a été trouvé
     if (emojiElement) {
-      // Si l'élément sélectionné est différent de celui actuel, on joue le son et met à jour l'état
       const emotionName = emojiElement.querySelector('.emotion-name')?.textContent || '';
       audio.play();
       if (emotionName !== selectedEmotion) {
-        setSelectedEmotion(emotionName);  // Met à jour l'émotion sélectionnée
+        setSelectedEmotion(emotionName);
       }
-
-      // Enlever la classe 'active' de tous les éléments
       const allElements = document.querySelectorAll('.container-emoji-single');
       allElements.forEach((el) => {
         el.classList.remove('active2');
       });
-
-      // Ajouter la classe 'active' à l'élément sélectionné
       emojiElement.classList.add('active2');
-
-      console.log('Element trouvé:', emojiElement);
     }
   };
 
-
   const handlePointerEnd = () => {
-    setIsPointerDown(false); // L'appui a été relâché
+    setIsPointerDown(false);
     const allElements = document.querySelectorAll('.container-emoji-single');
     allElements.forEach((el) => {
       el.classList.remove('active');
@@ -66,47 +85,31 @@ const Select: React.FC = () => {
   };
 
   const handlePointerMove = (event: React.TouchEvent) => {
-    // Détecte le mouvement du doigt
     if (isPointerDown) {
-      // Si l'appui est maintenu, on récupère les coordonnées du doigt
       const { clientX, clientY } = event.touches[0];
-
-      // On récupère l'élément sous la position clientX, clientY
       const elementUnderFinger = document.elementFromPoint(clientX, clientY);
-      // On vérifie si l'élément a la classe 'container-emoji-single', sinon on vérifie son parent
       const targetElement = elementUnderFinger?.classList.contains('container-emoji-single')
         ? elementUnderFinger
         : elementUnderFinger?.closest('.container-emoji-single');
-
-      // Si un élément avec la classe a été trouvé
       if (targetElement) {
-        // Si l'élément sélectionné est différent de celui actuel, on joue le son et met à jour l'état
         const emotionName = targetElement.querySelector('.emotion-name')?.textContent || '';
         if (emotionName !== selectedEmotion) {
           audio.play();
-          setSelectedEmotion(emotionName);  // Met à jour l'émotion sélectionnée
+          setSelectedEmotion(emotionName);
         }
-
-        // Enlever la classe 'active' de tous les éléments
         const allElements = document.querySelectorAll('.container-emoji-single');
         allElements.forEach((el) => {
           el.classList.remove('active');
           el.classList.remove('active2');
         });
-
-        // Ajouter la classe 'active' à l'élément sélectionné
         targetElement.classList.add('active');
-
-        console.log('Element trouvé:', targetElement);
       }
-
-      console.log('Position du doigt:', clientX, clientY);
     }
   };
 
   return (
     <IonPage>
-      <Survey/>
+      <Survey />
       <IonContent
         fullscreen
         className='background-content'
@@ -115,19 +118,15 @@ const Select: React.FC = () => {
         <div className="emotion-selector">
           <div className="title">
             {t('howdoyoufeel')}, <br /> <span className='bold'>{t('now')}</span>
-            {/* <button onClick={() => i18n.changeLanguage('br')}>br</button>
-            <button onClick={() => i18n.changeLanguage('jp')}>jp</button>
-            <button onClick={() => i18n.changeLanguage('fr')}>fr</button>
-            <button onClick={() => i18n.changeLanguage('en')}>en</button> */}
           </div>
-
           <div className="choose-emotion">
             {t('chooseyouremotion')} <img src="images/arrow-down.svg" alt="" className="arrow-down" />
           </div>
+
           <div className="wrap-emoji"
-            onTouchStart={handlePointerStart}  // Détecte le début du toucher
-            onTouchEnd={handlePointerEnd}      // Détecte la fin du toucher
-            onTouchMove={handlePointerMove}    // Détecte le mouvement du doigt
+            onTouchStart={handlePointerStart}
+            onTouchEnd={handlePointerEnd}
+            onTouchMove={handlePointerMove}
           >
             {emotions.map(({ name, image, imageStatic, background, color }) => (
               <div
@@ -150,7 +149,8 @@ const Select: React.FC = () => {
                   ></path>
                 </svg>
                 <div className='container-content'>
-                  <DotLottieReact src={image} loop autoplay />
+                  {/* <DotLottieReact src={image} loop autoplay /> */}
+                  <img src={imageStatic} alt="" className='emotion-image' />
                   <div style={{ marginTop: '3px' }} className='emotion-name'>{t(name)}
                   </div>
                 </div>

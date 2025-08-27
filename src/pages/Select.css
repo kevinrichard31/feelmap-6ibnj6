@@ -90,6 +90,10 @@
     padding-top: 50px;
 }
 
+.emotion-image {
+    width: 35px;
+}
+
 @media(prefers-color-scheme: dark) {
     .background-content {
         --background: #222222 !important;
